@@ -1,0 +1,150 @@
+{% extends 'hiking/base.html' %}
+{% block myBlockTitle %}Hikes{% endblock %}
+
+{% block myBlock %}
+<div class="container-fluid details-container">
+
+    <div class="row">
+
+        <!-- Left Hike Info -->
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>{{ hike.title }} {{ hike.year }}</h2>
+                    <h3>{{ hike.place }}</h3>
+
+                    <a href="{{ hike.hike_image.url }}">
+                        {% if hike.hike_image %}
+                            <img src="{{  hike.hike_image.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <ul>
+                        <li><h4>Country  : {{ hike.country }}</h4></li>
+                        <li><h4>Period   : {{ hike.date }}</h4></li>
+                        <li><h4>Duration : {{ hike.duration }}</h4></li>
+                    </ul>
+                    <br>
+                     <a href="{% url 'hiking:detail-create' hike.id %}">
+                        <button type="button" class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus"></span>&nbsp; Add New Item
+                       </button>
+                     </a>
+
+                       <!-- Edit Details -->
+                        <form action="{% url 'hiking:hike-update' hike.pk %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="hike_id" value="{{ hike.id }}" />
+                            <input type="hidden" name="title" value="{{ hike.title }}" />
+                            <input type="hidden" name="place" value="{{ hike.place }}" />
+                            <input type="hidden" name="country" value="{{ hike.country }}" />
+                             <input type="hidden" name="country" value="{{ hike.year }}" />
+                            <input type="hidden" name="date" value="{{ hike.date }}" />
+
+                            <button type="submit" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        </form>
+
+                        <!-- Delete Hike -->
+
+                                <form action="{% url 'hiking:hike-delete' hike.pk %}" method="post" style="display: inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="hike_id" value="{{ hike.id }}" />
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </form>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Detail Info -->
+        <div class="col-sm-9 col-md-9">
+
+
+            <div class="panel panel-default">
+
+                <div class="col-sm-12">
+
+
+                </div>
+
+                <div class="panel-body">
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+
+                        <tbody>
+                         {% for tripdetail in hike.tripdetail_set.all %}
+
+                            <tr>
+                                <td>
+                                    <h3> {{ tripdetail.title }}</h3>
+                                    <h5> {{ tripdetail.description }} </h5>
+                                    <div class="caption">
+                                        <!-- Edit Details -->
+
+                                        <form action="{% url 'hiking:detail-edit' tripdetail.pk %}" method="post" style="display: inline;">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="tripdetail_pk" value="{{ tripdetail.pk }}" />
+                                            <input type="hidden" name="description" value="{{ tripdetail.title }}" />
+                                            <input type="hidden" name="description" value="{{ tripdetail.description }}" />
+                                            <input type="hidden" name="url" value="{{ tripdetail.url }}" />
+                                            <input type="hidden" name="kind" value="{{ tripdetail.kind }}" />
+                                            <input type="hidden" name="kind" value="{{ tripdetail.order }}" />
+
+                                            <button type="submit" class="btn btn-default btn-sm">
+                                                <span class="glyphicon glyphicon-edit"></span>
+                                            </button>
+                                        </form>
+
+                                        <!-- Delete Trip Detail -->
+                                        <!-- /hiking/hike/<hike_id>/delete_tripdetail -->
+                                        <form action="{% url 'hiking:detail-delete' tripdetail.pk %}" method="post" style="display: inline;">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="tripdetail_id" value="{{ tripdetail.id }}" />
+                                            <button type="submit" class="btn btn-default btn-sm">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </form>
+                                        <br>
+                                     </div>
+
+
+                                    {% if tripdetail.kind == 'image' %}
+                                         <a href="{{ tripdetail.url }}" target="_blank">
+                                                <img src="{{ tripdetail.url }}" class="img-responsive">
+                                           </a>
+                                    {% endif %}
+
+                                    {% if tripdetail.kind == 'movie' %}
+                                           <a href="{{ tripdetail.url }}" target="_blank"><h3><span class="glyphicon glyphicon-film"></span> Play Movie</h3></a>
+                                    {% endif %}
+
+                                    {% if tripdetail.kind == 'link' %}
+                                           <a href="{{ tripdetail.url }}" target="_blank"><h3><span class="glyphicon glyphicon-link"></span> Show Link</h3></a>
+                                    {% endif %}
+                                </td>
+
+                            </tr>
+
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
