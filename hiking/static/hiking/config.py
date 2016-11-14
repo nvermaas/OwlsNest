@@ -1,0 +1,1 @@
+HIKES_PER_PAGE = 12

@@ -11,8 +11,9 @@ from django.views.generic import View
 from .models import Hike, TripDetail
 from .forms import myLoginForm,myRegisterForm, myContactForm
 
+from .static.hiking import config
+
 # constants, read from a config later
-HIKES_PER_PAGE = 6
 
 class IndexView_old(generic.ListView):
     template_name = 'hiking/index.html'
@@ -40,7 +41,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         hike_list = Hike.objects.order_by('-year')
-        paginator = Paginator(hike_list, HIKES_PER_PAGE)  # Show 25 contacts per page
+        paginator = Paginator(hike_list, config.HIKES_PER_PAGE)  # Show x hikes per page
 
         page = self.request.GET.get('page')
         try:
