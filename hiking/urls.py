@@ -1,9 +1,31 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
+from django.contrib.auth.models import User
+
 from . import views
+from rest_framework import routers
 
 app_name = 'hiking'
 
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'hiking', views.HikeViewSet)
+
+
+# Wire up our API using automatic URL routing.
+# Additionally, we include login URLs for the browsable API.
+
 urlpatterns = [
+    # REST framework
+
+    # the next url reroutes all calls through the router and REST framework
+    url(r'^REST/', include(router.urls)),
+    url(r'^rest/$', views.HikeListRest.as_view(), name='hike-list'),
+    url(r'^(?P<pk>[0-9]+)/rest$', views.HikeDetailRest.as_view(), name='hike-details'),
+    url(r'^(?P<pk>[0-9]+)/rest2', views.TripDetailsListRest.as_view()),
+
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
     # /hiking/
     url(r'^$', views.IndexView.as_view(), name='index'),
 
