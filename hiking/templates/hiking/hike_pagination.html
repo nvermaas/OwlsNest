@@ -1,17 +1,25 @@
+
 <div class="pagination">
-<span class="step-links">
-    <h4>
+
+{% if my_hikes_all.has_other_pages %}
+  <ul class="pagination">
     {% if my_hikes_all.has_previous %}
-        <a href="?page={{ my_hikes_all.previous_page_number }}"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp; previous</a>
+      <li><a href="?page={{ my_hikes_all.previous_page_number }}"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></a></li>
+    {% else %}
+      <li class="disabled"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></li>
     {% endif %}
-
-    <span class="current">
-        Page {{ my_hikes_all.number }} of {{ my_hikes_all.paginator.num_pages }}
-    </span>
-
+    {% for i in my_hikes_all.paginator.page_range %}
+      {% if my_hikes_all.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
     {% if my_hikes_all.has_next %}
-        <a href="?page={{ my_hikes_all.next_page_number }}">next <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>
+      <li><a href="?page={{ my_hikes_all.next_page_number }}"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a></li>
+    {% else %}
+      <li class="disabled"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></li>
     {% endif %}
-    </h4>
-</span>
+  </ul>
+{% endif %}
 </div>
