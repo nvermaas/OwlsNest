@@ -14,7 +14,7 @@ var HikeList = React.createClass({
     },
 
     getInitialState: function() {
-        return {data: []};
+        return {data: ''};
     },
 
     componentDidMount: function() {
@@ -25,20 +25,22 @@ var HikeList = React.createClass({
     render: function() {
         if (this.state.data) {
             console.log('DATA!')
-            var hikeNodes = this.state.data.map(function(hike){
-                return <li> {hike.title} </li>
+            var hikeNodes = this.state.data.map(
+                function(results){
+                return <li> {results.title} </li>
             })
         }
         return (
             <div>
-                <h1>Hello React!</h1>
+                <h1>HikeNodes:</h1>
                 <ul>
                     {hikeNodes}
                 </ul>
+
             </div>
         )
     }
 })
 
-ReactDOM.render(<HikeList url='/hiking/rest' pollInterval={1000} />,
+ReactDOM.render(<HikeList url='/hiking/rest' pollInterval={5000} />,
     document.getElementById('myMainContainer'))
