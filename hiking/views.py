@@ -165,6 +165,7 @@ class TripDetailsListRest(generics.ListCreateAPIView):
     serializer_class = TripDetailSerializer
 
 
+
 # --- HTML API ---
 
 class IndexView(generic.ListView):
@@ -313,3 +314,35 @@ class myContactView(FormView):
         form.send_email()
         return super(myContactView, self).form_valid(form)
 
+
+"""
+Temporary View to test how reacts works on the rest interface.
+Call this url in the browser: http://localhost:8000/hiking/react
+"""
+class ReactView(generic.ListView):
+    template_name = 'hiking/my_react.html'
+
+    # by default this returns the list in an object called object_list, so use 'object_list' in the html page.
+    # but if 'context_object_name' is defined, then this returned list is named and can be accessed that way in html.
+    context_object_name = 'my_hikes_all'
+
+    def get_queryset(self):
+        #return Hike.objects.all()
+        # sort on year descending
+        return Hike.objects.order_by('-year')
+
+    def get_queryset_new(self):
+        hike_list = Hike.objects.all().order_by('-year')
+        paginator = Paginator(hike_list, config.HIKES_PER_PAGE)  # Show x hikes per page
+
+        page = self.request.GET.get('page')
+        try:
+            hikes = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            hikes = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            hikes = paginator.page(paginator.num_pages)
+
+        return hikes

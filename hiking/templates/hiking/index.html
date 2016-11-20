@@ -1,6 +1,6 @@
 {% extends 'hiking/base.html' %}
 
-{% load render_bundle from webpack_loader %}
+
 
 {% block myBlock %}
 
@@ -8,7 +8,6 @@
 <div class="hiking-container container-fluid">
 
     <!-- Hikes -->
-    {% include 'hiking/my_react.html' %}
     {% include 'hiking/hike_pagination.html' %}
         <div class="row">
 
@@ -48,16 +47,5 @@
     {% include 'hiking/hike_pagination.html' %}
 </div>
 
-<div id="App1"></div>
-{% render_bundle 'vendors' %}
-{% render_bundle 'App1' %}
-
-<div id="myContainer"></div>
-
-<script type="text/babel">
-    var container =  document.getElementById('myContainer');
-    var element =  <h2>my React</h2>;
-    ReactDOM.render(element, container);
-</script>
 
 {% endblock %}

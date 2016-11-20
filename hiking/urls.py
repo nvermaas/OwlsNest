@@ -21,10 +21,15 @@ urlpatterns = [
     # the next url reroutes all calls through the router and REST framework
     url(r'^REST/', include(router.urls)),
     url(r'^rest/$', views.HikeListRest.as_view(), name='hike-list'),
+
+    # /hiking/rest
     url(r'^(?P<pk>[0-9]+)/rest$', views.HikeDetailRest.as_view(), name='hike-details'),
     url(r'^(?P<pk>[0-9]+)/rest2', views.TripDetailsListRest.as_view()),
 
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    # /hiking/react (temporary url to test react without the need to start a separate webserver
+    url(r'^react$', views.ReactView.as_view(), name='react'),
 
     # /hiking/
     url(r'^$', views.IndexView.as_view(), name='index'),
