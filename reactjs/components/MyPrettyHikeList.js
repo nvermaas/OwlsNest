@@ -1,6 +1,8 @@
 
 // https://toddmotto.com/react-create-class-versus-component/
 // https://facebook.github.io/react/docs/state-and-lifecycle.html
+// http://www.material-ui.com/#/components/card
+
 import {List, ListItem} from 'material-ui/List';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -8,8 +10,15 @@ import {grey400,darkBlack, lightBlack, deepOrange500} from 'material-ui/styles/c
 import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
 const styles = {
+
+  image50: {
+    width: 200,
+    height: 100
+  },
+
   container: {
     textAlign: 'center',
     paddingTop: 200,
@@ -56,21 +65,28 @@ var MyPrettyHikeList = React.createClass({
 
             var myPrettyHikeNodes = this.state.data.results.map(
                 function(results){
-                return <list>
-                    <ListItem
-                        leftAvatar={<Avatar src={results.hike_image}  />}
-                        primaryText={
-                            <p> {results.title} &nbsp;&nbsp; {results.year} </p>
-                        }
-                        secondaryText={
-                            <p>
-                                <span style={{color: darkBlack}}> {results.place}, {results.country}, {results.duration} </span>
-                            </p>
-                        }
-                        secondaryTextLines={2}
+                    var cardStyle = {
+                    width: '30%',
+
+                 }
+                return <Card style={cardStyle}>
+                    <CardHeader
+                        title={results.title}
+                        subtitle={results.year}
+                        actAsExpander={true}
+                        showExpandableButton={true}
                      />
-                    <Divider inset={true} />
-                </list>
+                     <CardMedia
+                           overlay={<CardTitle title={results.place} subtitle={results.duration} />}
+                      >
+                        <img class="image50" src={results.hike_image} />
+                     </CardMedia>
+
+                      <CardActions>
+                        <FlatButton label="Details" />
+                        <FlatButton label="Delete" />
+                       </CardActions>
+                   </Card>
             })
         }
         return (
