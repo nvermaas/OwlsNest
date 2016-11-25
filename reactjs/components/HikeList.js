@@ -1,8 +1,6 @@
 
 // https://toddmotto.com/react-create-class-versus-component/
 // https://facebook.github.io/react/docs/state-and-lifecycle.html
-var React = require('react')
-var ReactDOM = require('react-dom')
 
 var HikeList = React.createClass({
 
@@ -43,7 +41,7 @@ var HikeList = React.createClass({
         }
         return (
             <div>
-                <h1>myBundle.js : HikeList (25 nov 09:53):</h1>
+                <h1>HikeList (25 nov 11:30):</h1>
                 <ul>
                     {hikeNodes}
                 </ul>
