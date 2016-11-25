@@ -30,73 +30,21 @@ from .static.hiking import config
 # constants, read from a config later
 
 # --- REST API ---
+
+#nv: I don know what this does yet
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
-        'hikes': reverse('hike-list', request=request, format=format),
-        'trip-details': reverse('trip-details', request=request, format=format)
+        'hiking': reverse('hike-list-rest', request=request, format=format),
+        'trip-details': reverse('trip-details-rest', request=request, format=format)
     })
 
-class HikeViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows Hikes to be viewed or edited.
-    """
-    queryset = Hike.objects.all().order_by('-year')
-    serializer_class = HikeSerializer
 
-
-class TripDetailViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows TripDetails to be viewed or edited.
-    """
-    queryset = TripDetail.objects.all()
-    serializer_class = TripDetailSerializer
 
 # --- testing rest ---
-# function based views
-@api_view(['GET', 'POST'])
-def hike_list_rest(request):
-    """
-    List all Hikes, or create a new snippet.
-    """
-    if request.method == 'GET':
-        myHikes = Hike.objects.all()
-        mySerializer = HikeSerializer(myHikes, many=True)
-        return Response(mySerializer.data)
-
-    elif request.method == 'POST':
-        mySerializer = HikeSerializer(data = request.data)
-        if mySerializer.is_valid():
-            mySerializer.save()
-            return Response(mySerializer.data, status = status.HTTP_201_CREATED)
-        return Response(mySerializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['GET', 'PUT', 'DELETE'])
-def hike_detail_rest(request, pk):
-    """
-    Retrieve, update or delete a Hike instance.
-    """
-    try:
-        myHike = Hike.objects.get(pk=pk)
-    except Hike.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        mySerializer = HikeSerializer(myHike)
-        return Response(mySerializer.data)
-
-    elif request.method == 'PUT':
-        mySerializer = HikeSerializer(myHike, data=request.data)
-        if mySerializer.is_valid():
-            mySerializer.save()
-            return Response(mySerializer.data)
-        return Response(mySerializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        myHike.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 # class based views
+# example of the functionality that is now hidden inside the generics classes)
 class HikeListRest_old(APIView):
     """
     List all Hikes, or create a new Hike.
@@ -112,35 +60,6 @@ class HikeListRest_old(APIView):
             mySerializer.save()
             return Response(mySerializer.data, status = status.HTTP_201_CREATED)
         return Response(mySerializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class HikeDetailRest_old(APIView):
-    """
-    Retrieve, update or delete a hike instance.
-    """
-
-    def get_object(self, pk):
-        try:
-            return Hike.objects.get(pk=pk)
-        except Hike.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        myHike = self.get_object(pk)
-        mySerializer = HikeSerializer(myHike)
-        return Response(mySerializer.data)
-
-    def put(self, request, pk, format=None):
-        myHike = self.get_object(pk)
-        mySerializer = HikeSerializer(myHike, data=request.data)
-        if mySerializer.is_valid():
-            mySerializer.save()
-            return Response(mySerializer.data)
-        return Response(mySerializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        myHike = self.get_object(pk)
-        myHike.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class HikeListRest(generics.ListCreateAPIView):
@@ -329,20 +248,4 @@ class ReactView(generic.ListView):
     def get_queryset(self):
         #return Hike.objects.all()
         # sort on year descending
-        return Hike.objects.order_by('-year')
-
-    def get_queryset_new(self):
-        hike_list = Hike.objects.all().order_by('-year')
-        paginator = Paginator(hike_list, config.HIKES_PER_PAGE)  # Show x hikes per page
-
-        page = self.request.GET.get('page')
-        try:
-            hikes = paginator.page(page)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page.
-            hikes = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            hikes = paginator.page(paginator.num_pages)
-
-        return hikes
+        return Hike.objects.order_by('year')
