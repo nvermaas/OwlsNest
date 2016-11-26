@@ -13,7 +13,7 @@
                     <h2>{{ hike.title }} {{ hike.year }}</h2>
                     <h3>{{ hike.place }}</h3>
 
-                    <a href="{{ hike.hike_image.url }}">
+                    <a href="{{ hike.hike_image_url }}">
                         {% if hike.hike_image %}
                             <img src="{{  hike.hike_image.url }}" class="img-responsive">
                         {% else %}
