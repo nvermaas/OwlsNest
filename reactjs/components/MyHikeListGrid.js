@@ -8,13 +8,14 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {grey400,darkBlack, lightBlack, deepOrange500} from 'material-ui/styles/colors';
 import Avatar from 'material-ui/Avatar';
-import Divider from 'material-ui/Divider';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+
 import FlatButton from 'material-ui/FlatButton';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import ActionExplore from 'material-ui/svg-icons/action/explore';
+import MapsEditLocation from 'material-ui/svg-icons/maps/edit-location';
+
 
 const styles = {
   root: {
@@ -27,27 +28,32 @@ const styles = {
     height: 1000,
     overflowY: 'auto',
   },
-  image50: {
-    width: 200,
-    height: 100
-  },
-  cardStyle: {
-    width: 500,
-    height: 400
-   },
+
 };
 
-const muiTheme = getMuiTheme({
-  palette: {
-    accent1Color: deepOrange500,
-  },
-});
 
+class MyHikeListGrid extends React.Component {
 
+    constructor(props) {
+        console.log("constructor")
+        super(props);
 
-var MyHikeListGrid = React.createClass({
+        this.handleTouchTap = this.handleTouchTap.bind(this);
 
-    loadHikesFromServer: function(){
+        this.state = {data: ''};
+
+        // from now on::
+        // Wrong   = this.state.data = '';
+        // Correct = this.setState({data: ''});
+    }
+
+    // if icon is clicked
+    handleTouchTap() {
+       console.log("handleTouchTap")
+       this.setState({data: ''});
+    }
+
+   loadHikesFromServer() {
         console.log("loadHikesFromServer")
         $.ajax({
             url: this.props.url,
@@ -57,21 +63,15 @@ var MyHikeListGrid = React.createClass({
                 this.setState({data: data});
             }.bind(this)
         })
-    },
+    }
 
-    getInitialState: function() {
-        console.log("getInitialState")
-        return {data: ''};
-    },
-
-    componentDidMount: function() {
+    componentDidMount() {
         console.log("componentDidMount")
         this.loadHikesFromServer();
-        setInterval(this.loadHikesFromServer,
-                    this.props.pollInterval)
-    },
+        setInterval(this.loadHikesFromServer, this.props.pollInterval)
+    }
 
-    render: function() {
+    render() {
         console.log('render')
 
         if (this.state.data) {
@@ -84,11 +84,15 @@ var MyHikeListGrid = React.createClass({
 
                  }
                 return <GridTile
-
                         key={results.hike_image}
-                        title={results.title}
+                        title={<span>{results.title} {results.year}</span>}
                         subtitle={<span> {results.place} </span>}
-                        actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
+                        actionIcon={
+                            //<IconButton onTouchTap={this.handleTouchTap}>
+                            <IconButton>
+                                <MapsEditLocation color="white" />
+                            </IconButton>
+                           }
                        >
                           <img src={results.hike_image} />
                     </GridTile>
@@ -96,6 +100,7 @@ var MyHikeListGrid = React.createClass({
         }
         return (
             <MuiThemeProvider>
+
             <div>
                 <GridList cellHeight={180} cols={5} style={styles.gridList}>
                     {myHikeNodesGrid}
@@ -104,6 +109,6 @@ var MyHikeListGrid = React.createClass({
             </MuiThemeProvider>
         )
     }
-})
+}
 
 export default MyHikeListGrid;

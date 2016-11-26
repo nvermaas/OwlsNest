@@ -15,6 +15,8 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import ActionExplore from 'material-ui/svg-icons/action/explore';
+import ActionHome from 'material-ui/svg-icons/action/home';
 
 const styles = {
   root: {
@@ -88,7 +90,7 @@ var MyHikeListGrid = React.createClass({
                         key={results.hike_image}
                         title={results.title}
                         subtitle={<span> {results.place} </span>}
-                        actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
+                        actionIcon={<IconButton><ActionExplore color="white" /></IconButton>}
                        >
                           <img src={results.hike_image} />
                     </GridTile>

@@ -11,30 +11,18 @@ import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import {GridList, GridTile} from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import Subheader from 'material-ui/Subheader';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
 const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
-  gridList: {
-    width: 1500,
-    height: 1000,
-    overflowY: 'auto',
-  },
+
   image50: {
     width: 200,
     height: 100
   },
-  cardStyle: {
-    width: 500,
-    height: 400
-   },
+
+  container: {
+    textAlign: 'center',
+    paddingTop: 200,
+  },
 };
 
 const muiTheme = getMuiTheme({
@@ -43,9 +31,9 @@ const muiTheme = getMuiTheme({
   },
 });
 
+  
 
-
-var MyHikeListGrid = React.createClass({
+var MyHikeListCards = React.createClass({
 
     loadHikesFromServer: function(){
         console.log("loadHikesFromServer")
@@ -77,33 +65,40 @@ var MyHikeListGrid = React.createClass({
         if (this.state.data) {
             console.log('DATA!')
 
-            var myHikeNodesGrid = this.state.data.results.map(
+            var myHikeNodesCards = this.state.data.results.map(
                 function(results){
                     var cardStyle = {
-                    width: '300',
+                    width: '30%',
 
                  }
-                return <GridTile
-
-                        key={results.hike_image}
+                return <Card style={cardStyle}>
+                    <CardHeader
                         title={results.title}
-                        subtitle={<span> {results.place} </span>}
-                        actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
-                       >
-                          <img src={results.hike_image} />
-                    </GridTile>
+                        subtitle={results.year}
+                        actAsExpander={true}
+                        showExpandableButton={true}
+                     />
+                     <CardMedia
+                           overlay={<CardTitle title={results.place} subtitle={results.duration} />}
+                      >
+                        <img class="image50" src={results.hike_image} />
+                     </CardMedia>
+
+                      <CardActions>
+                        <FlatButton label="Details" />
+                        <FlatButton label="Delete" />
+                       </CardActions>
+                   </Card>
             })
         }
         return (
             <MuiThemeProvider>
             <div>
-                <GridList cellHeight={180} cols={5} style={styles.gridList}>
-                    {myHikeNodesGrid}
-                </GridList>
+                {myHikeNodesCards}
             </div>
             </MuiThemeProvider>
         )
     }
 })
 
-export default MyHikeListGrid;
+export default MyHikeListCards;

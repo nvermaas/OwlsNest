@@ -14,21 +14,20 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 import HikeList from './components/HikeList';
-import MyPrettyHikeList from './components/MyPrettyHikeList';
+import MyHikeListGrid from './components/MyHikeListGrid';
+import MyHikeListCards from './components/MyHikeListCards';
+import MyPaperChild from './components/MyPaperChild'
 
-//var React = require('react')
-//var ReactDOM = require('react-dom')
 render(<MyAppBarExample />, document.getElementById('myHeaderContainer'));
 
-
-ReactDOM.render(
-  <MyAwesomeReactComponent />,
-  document.getElementById('myMaterialContainer1')
-);
+//render(<MyPaperChild />, document.getElementById('myPaperContainer'));
 
 
-ReactDOM.render(
-    <MyPrettyHikeList url='/hiking/rest' pollInterval={5000} />,
-    document.getElementById('myListContainer'));
+render(<MyAwesomeReactComponent />,document.getElementById('myMaterialContainer1'));
+
+
+render(<MyHikeListGrid url='/hiking/rest' pollInterval={5000} />,document.getElementById('myListContainer'));
+
+//render(<MyHikeListCards url='/hiking/rest' pollInterval={5000} />,document.getElementById('myListContainer'));
 
 //render(<MyMaterialExample />, document.getElementById('myMaterialContainer2'));

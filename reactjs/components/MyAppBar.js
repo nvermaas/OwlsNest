@@ -4,6 +4,7 @@ import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import ActionExplore from 'material-ui/svg-icons/action/explore';
 
 function handleTouchTap() {
   alert('onTouchTap triggered on the title component');
@@ -24,8 +25,8 @@ const MyAppBarExample = () => (
     <AppBar
         title={<span style={styles.title}>My Hiking Trips</span>}
         onTitleTouchTap={handleTouchTap}
-        iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-        iconElementRight={<FlatButton label="Add Hike" />}
+        iconElementLeft={<IconButton><ActionExplore /></IconButton>}
+        iconElementRight={<FlatButton label="Contact" />}
     />
   </MuiThemeProvider>
 );
