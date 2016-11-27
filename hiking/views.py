@@ -125,11 +125,11 @@ class DetailsView(generic.DetailView):
 #inherits from standard CreateView class that stores form information into the model and to the database
 class CreateHike(CreateView):
     model = Hike
-    fields = ['title','place','country','date','year','duration','hike_image', 'hike_image_url']
+    fields = ['title','place','country','date','year','duration', 'hike_image_url']
 
 class UpdateHike(UpdateView):
     model = Hike
-    fields = ['title','place','country','date','year','duration','hike_image', 'hike_image_url']
+    fields = ['title','place','country','date','year','duration', 'hike_image_url']
 
 class DeleteHike(DeleteView):
     model = Hike

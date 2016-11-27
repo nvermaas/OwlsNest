@@ -14,8 +14,8 @@
                     <h3>{{ hike.place }}</h3>
 
                     <a href="{{ hike.hike_image_url }}">
-                        {% if hike.hike_image %}
-                            <img src="{{  hike.hike_image.url }}" class="img-responsive">
+                        {% if hike.hike_image_url %}
+                            <img src="{{  hike.hike_image_url }}" class="img-responsive">
                         {% else %}
                             <h3>No image to display</h3>
                         {% endif %}
