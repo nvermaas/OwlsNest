@@ -81,7 +81,7 @@ class MyHikeListGrid extends React.Component {
                 //function(results){
                 (results) => {
                 return <GridTile
-                        key={results.hike_image}
+                        key={results.hike_image_url}
                         title={<span>{results.title} {results.year}</span>}
                         subtitle={<span> {results.place} </span>}
                         actionIcon={
@@ -91,7 +91,7 @@ class MyHikeListGrid extends React.Component {
                             </IconButton>
                            }
                        >
-                          <img src={results.hike_image} />
+                          <img src={results.hike_image_url} />
                     </GridTile>
 
             })
