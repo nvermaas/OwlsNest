@@ -10,7 +10,7 @@ class HikeAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Overview',  {'fields': ['title','place','country']}),
         ('Date Information', {'fields': ['date', 'duration']}),
-        ('Image',{'fields': ['hike_image']})
+        ('Image',{'fields': ['hike_image_url']})
     ]
     inlines = [TripReportInline]
     # this changes the layout of the dropdown list for hikes (default it shows the whole record as a str)
