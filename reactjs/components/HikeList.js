@@ -1,8 +1,11 @@
-var React = require('react')
-var ReactDOM = require('react-dom')
+
+// https://toddmotto.com/react-create-class-versus-component/
+// https://facebook.github.io/react/docs/state-and-lifecycle.html
 
 var HikeList = React.createClass({
+
     loadHikesFromServer: function(){
+        console.log("loadHikesFromServer")
         $.ajax({
             url: this.props.url,
             datatype: 'json',
@@ -14,25 +17,31 @@ var HikeList = React.createClass({
     },
 
     getInitialState: function() {
+        console.log("getInitialState")
         return {data: ''};
     },
 
     componentDidMount: function() {
+        console.log("componentDidMount")
         this.loadHikesFromServer();
         setInterval(this.loadHikesFromServer,
                     this.props.pollInterval)
     },
+
     render: function() {
+        console.log('render')
+
         if (this.state.data) {
             console.log('DATA!')
-            var hikeNodes = this.state.data.map(
+
+            var hikeNodes = this.state.data.results.map(
                 function(results){
-                return <li> {results.title} </li>
+                return <li> {results.title} {results.year} - {results.place}, {results.country}, {results.duration} - {results.hike_image}</li>
             })
         }
         return (
             <div>
-                <h1>HikeNodes:</h1>
+                <h1>HikeList (25 nov 11:30):</h1>
                 <ul>
                     {hikeNodes}
                 </ul>
@@ -42,5 +51,4 @@ var HikeList = React.createClass({
     }
 })
 
-ReactDOM.render(<HikeList url='/hiking/rest' pollInterval={5000} />,
-    document.getElementById('myMainContainer'))
+export default HikeList;

@@ -4,36 +4,40 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>React - Template</title>
-    <script src="../../js/react.min.js"></script>
-    <script src="../../js/react-dom.min.js"></script>
-    <script src="../../js/browser.min.js"></script>
+
+<!--
+    <script src="../../../js/react.min.js"></script>
+    <script src="../js/react-dom.min.js"></script>
+    <script src="../js/browser.min.js"></script>
+-->
 
     <script src="https://unpkg.com/react@15/dist/react.js"></script>
     <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
 
+    <script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" type="text/javascript" async=""></script>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
     {% load render_bundle from webpack_loader %}
 
 </head>
 <body>
+    <div id="myHeaderContainer"></div>
+    <div id="myPaperContainer"></div>
+    <div id="myMaterialContainer1"></div>
+    <div id="myMaterialContainer2"></div>
+    <div id="myMaterialContainer3"></div>
 
-    <!-- this is my extremely simple first container -->
-    <div id="myContainer"></div>
+    <div id="myOtherContainer"></div>
 
-
-    <!-- this is my extremely simple first component -->
-    <script type="text/babel">
-        var container =  document.getElementById('myContainer');
-        var element =  <h3>Nico's simple react component</h3>;
-        ReactDOM.render(element, container);
-    </script>
-
+    <!-- This shows the list read through the REST API: -->
+    <div id="myListContainer"></div>
 
 
-    <h2>This should show the list read through the REST API:</h2>
-    <div id="myMainContainer"></div>
     {% render_bundle 'main' %}
+
+
 
 
 </body>

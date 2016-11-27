@@ -5,7 +5,7 @@ from .models import Hike, TripDetail
 class HikeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Hike
-        fields = ('title','place','country','date','year','duration','hike_image')
+        fields = ('id','title','place','country','date','year','duration','hike_image')
 
 class TripDetailSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
