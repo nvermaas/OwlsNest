@@ -11,6 +11,7 @@ class Hike(models.Model):
     year = models.IntegerField(default=2000)
     duration = models.CharField(max_length=20)
     hike_image_url = models.URLField(max_length=250, default='',blank=True)
+    visible = models.IntegerField(default=1)
 
     def get_absolute_url(self):
         return reverse('hiking:details', kwargs={'pk': self.pk})
@@ -43,10 +44,11 @@ class TripDetail(models.Model):
     hike = models.ForeignKey(Hike, on_delete=models.CASCADE)
     title =  models.CharField(max_length=50, blank=True)
     description = models.TextField(max_length=3000, blank=True)
-    url = models.URLField(max_length=250, default='',blank=True)
+    details_url = models.URLField(max_length=250, default='',blank=True)
     # kinds : image, movie
     kind = models.CharField(max_length=30, choices=KIND_CHOICES, default=KIND_IMAGE)
     order = models.IntegerField(default=0)
+    visible = models.IntegerField(default=1)
 
     def get_absolute_url(self):
         return reverse('hiking:details', kwargs={'pk': self.pk})

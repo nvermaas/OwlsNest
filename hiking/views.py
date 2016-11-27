@@ -125,11 +125,11 @@ class DetailsView(generic.DetailView):
 #inherits from standard CreateView class that stores form information into the model and to the database
 class CreateHike(CreateView):
     model = Hike
-    fields = ['title','place','country','date','year','duration', 'hike_image_url']
+    fields = ['title','place','country','date','year','duration', 'hike_image_url', 'visible']
 
 class UpdateHike(UpdateView):
     model = Hike
-    fields = ['title','place','country','date','year','duration', 'hike_image_url']
+    fields = ['title','place','country','date','year','duration', 'hike_image_url', 'visible']
 
 class DeleteHike(DeleteView):
     model = Hike
@@ -138,13 +138,13 @@ class DeleteHike(DeleteView):
 class CreateTripDetail(CreateView):
     model = TripDetail
     template_name = 'hiking/create_tripdetail_form.html'
-    fields = ['hike','title','description','kind','url','order']
+    fields = ['hike','title','description','kind','details_url','order', 'visible']
     success_url = reverse_lazy('hiking:index')
 
 class EditTripDetail(UpdateView):
     model = TripDetail
     template_name = 'hiking/edit_tripdetail_form.html'
-    fields = ['hike', 'title', 'description', 'kind', 'url','order']
+    fields = ['hike', 'title', 'description', 'kind', 'details_url','order', 'visible']
     success_url = reverse_lazy('hiking:index')
 
 class DeleteTripDetail(DeleteView):
@@ -157,16 +157,19 @@ class myLoginFormView(View):
 
     # display blank form
     def get(self,request):
+        print("get")
         form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
 
     # process form data, add user to database
     def post(self, request):
+        print("post")
         form = self.form_class(request.POST)
-
+        print("check valid")
         if form.is_valid():
+            print("valid")
             user = form.save(commit=False)
-
+            print(user)
             # cleaned (normalized) data
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']

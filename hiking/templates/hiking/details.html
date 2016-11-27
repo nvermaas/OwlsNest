@@ -2,6 +2,7 @@
 {% block myBlockTitle %}Hikes{% endblock %}
 
 {% block myBlock %}
+
 <div class="container-fluid details-container">
 
     <div class="row">
@@ -26,37 +27,39 @@
                         <li><h4>Duration : {{ hike.duration }}</h4></li>
                     </ul>
                     <br>
-                     <a href="{% url 'hiking:detail-create' hike.id %}">
-                        <button type="button" class="btn btn-success">
-                            <span class="glyphicon glyphicon-plus"></span>&nbsp; Add New Item
-                       </button>
-                     </a>
 
-                       <!-- Edit Details -->
-                        <form action="{% url 'hiking:hike-update' hike.pk %}" method="post" style="display: inline;">
-                            {% csrf_token %}
-                            <input type="hidden" name="hike_id" value="{{ hike.id }}" />
-                            <input type="hidden" name="title" value="{{ hike.title }}" />
-                            <input type="hidden" name="place" value="{{ hike.place }}" />
-                            <input type="hidden" name="country" value="{{ hike.country }}" />
-                             <input type="hidden" name="country" value="{{ hike.year }}" />
-                            <input type="hidden" name="date" value="{{ hike.date }}" />
+                    {% if user.is_authenticated %}
 
-                            <button type="submit" class="btn btn-default btn-sm">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-                        </form>
+                         <a href="{% url 'hiking:detail-create' hike.id %}">
+                            <button type="button" class="btn btn-success">
+                                <span class="glyphicon glyphicon-plus"></span>&nbsp; Add New Item
+                           </button>
+                         </a>
 
-                        <!-- Delete Hike -->
+                           <!-- Edit Details -->
+                            <form action="{% url 'hiking:hike-update' hike.pk %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="hike_id" value="{{ hike.id }}" />
+                                <input type="hidden" name="title" value="{{ hike.title }}" />
+                                <input type="hidden" name="place" value="{{ hike.place }}" />
+                                <input type="hidden" name="country" value="{{ hike.country }}" />
+                                 <input type="hidden" name="country" value="{{ hike.year }}" />
+                                <input type="hidden" name="date" value="{{ hike.date }}" />
 
-                                <form action="{% url 'hiking:hike-delete' hike.pk %}" method="post" style="display: inline;">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="hike_id" value="{{ hike.id }}" />
-                                    <button type="submit" class="btn btn-default btn-sm">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </form>
+                                <button type="submit" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </form>
 
+                            <!-- Delete Hike -->
+                            <form action="{% url 'hiking:hike-delete' hike.pk %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="hike_id" value="{{ hike.id }}" />
+                                <button type="submit" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </form>
+                        {% endif %}
                 </div>
             </div>
         </div>
@@ -86,48 +89,52 @@
                                 <td>
                                     <h3> {{ tripdetail.title }}</h3>
                                     <h5> {{ tripdetail.description }} </h5>
-                                    <div class="caption">
-                                        <!-- Edit Details -->
 
-                                        <form action="{% url 'hiking:detail-edit' tripdetail.pk %}" method="post" style="display: inline;">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="tripdetail_pk" value="{{ tripdetail.pk }}" />
-                                            <input type="hidden" name="description" value="{{ tripdetail.title }}" />
-                                            <input type="hidden" name="description" value="{{ tripdetail.description }}" />
-                                            <input type="hidden" name="url" value="{{ tripdetail.url }}" />
-                                            <input type="hidden" name="kind" value="{{ tripdetail.kind }}" />
-                                            <input type="hidden" name="kind" value="{{ tripdetail.order }}" />
+                                    {% if user.is_authenticated %}
+                                        <div class="caption">
 
-                                            <button type="submit" class="btn btn-default btn-sm">
-                                                <span class="glyphicon glyphicon-edit"></span>
-                                            </button>
-                                        </form>
 
-                                        <!-- Delete Trip Detail -->
-                                        <!-- /hiking/hike/<hike_id>/delete_tripdetail -->
-                                        <form action="{% url 'hiking:detail-delete' tripdetail.pk %}" method="post" style="display: inline;">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="tripdetail_id" value="{{ tripdetail.id }}" />
-                                            <button type="submit" class="btn btn-default btn-sm">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </form>
-                                        <br>
-                                     </div>
+                                            <!-- Edit Details -->
 
+                                            <form action="{% url 'hiking:detail-edit' tripdetail.pk %}" method="post" style="display: inline;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="tripdetail_pk" value="{{ tripdetail.pk }}" />
+                                                <input type="hidden" name="description" value="{{ tripdetail.title }}" />
+                                                <input type="hidden" name="description" value="{{ tripdetail.description }}" />
+                                                <input type="hidden" name="url" value="{{ tripdetail.url }}" />
+                                                <input type="hidden" name="kind" value="{{ tripdetail.kind }}" />
+                                                <input type="hidden" name="kind" value="{{ tripdetail.order }}" />
+
+                                                <button type="submit" class="btn btn-default btn-sm">
+                                                    <span class="glyphicon glyphicon-edit"></span>
+                                                </button>
+                                            </form>
+
+                                            <!-- Delete Trip Detail -->
+                                            <!-- /hiking/hike/<hike_id>/delete_tripdetail -->
+                                            <form action="{% url 'hiking:detail-delete' tripdetail.pk %}" method="post" style="display: inline;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="tripdetail_id" value="{{ tripdetail.id }}" />
+                                                <button type="submit" class="btn btn-default btn-sm">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                            </form>
+                                            <br>
+                                         </div>
+                                    {% endif %}
 
                                     {% if tripdetail.kind == 'image' %}
-                                         <a href="{{ tripdetail.url }}" target="_blank">
-                                                <img src="{{ tripdetail.url }}" class="img-responsive">
+                                         <a href="{{ tripdetail.details_url }}" target="_blank">
+                                                <img src="{{ tripdetail.details_url }}" class="img-responsive">
                                            </a>
                                     {% endif %}
 
                                     {% if tripdetail.kind == 'movie' %}
-                                           <a href="{{ tripdetail.url }}" target="_blank"><h3><span class="glyphicon glyphicon-film"></span> Play Movie</h3></a>
+                                           <a href="{{ tripdetail.details_url }}" target="_blank"><h3><span class="glyphicon glyphicon-film"></span> Play Movie</h3></a>
                                     {% endif %}
 
                                     {% if tripdetail.kind == 'link' %}
-                                           <a href="{{ tripdetail.url }}" target="_blank"><h3><span class="glyphicon glyphicon-link"></span> Show Link</h3></a>
+                                           <a href="{{ tripdetail.details_url }}" target="_blank"><h3><span class="glyphicon glyphicon-link"></span> Show Link</h3></a>
                                     {% endif %}
                                 </td>
 

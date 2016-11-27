@@ -41,10 +41,6 @@
             <!-- Items -->
             <div class="collapse navbar-collapse" id="myTopNavBar">
 
-                <ul class="nav navbar-nav">
-
-
-                </ul>
 
                 <form class="navbar-form navbar-left" role="Search"  method="get" action="#">
                     <div class="form-group">
@@ -54,12 +50,27 @@
                     <button type="submit" class="bbtn btn-default">Search</button>
                 </form>
 
-                 <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar">
+                    {% if user.is_authenticated %}
                     <li class="">
                         <a href="{% url 'hiking:hike-add' %}">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Hike
                         </a>
                     </li>
+                     {% endif %}
+                </ul>
+
+                 <ul class="nav navbar-nav navbar-right">
+
+
+                     <li class="">
+                        {% if user.is_authenticated %}
+                             <a class="navbar-brand" href="{% url 'hiking:index' %}"> {{ user.username }} (admin)</a>
+                            {{ user.username }}
+                        {% else %}
+                            <a class="navbar-brand" href="{% url 'hiking:login' %}"> No User</a>
+                        {% endif %}
+                     </li>
 
                      <li class="">
                         <a href="{% url 'hiking:login' %}">
