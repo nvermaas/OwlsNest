@@ -9,13 +9,13 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {grey400,darkBlack, lightBlack, deepOrange500} from 'material-ui/styles/colors';
 import Avatar from 'material-ui/Avatar';
 
-import FlatButton from 'material-ui/FlatButton';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import ActionExplore from 'material-ui/svg-icons/action/explore';
 import MapsEditLocation from 'material-ui/svg-icons/maps/edit-location';
 
+import RaisedButton from 'material-ui/RaisedButton';
 
 const styles = {
   root: {
@@ -78,11 +78,8 @@ class MyHikeListGrid extends React.Component {
             console.log('DATA!')
 
             var myHikeNodesGrid = this.state.data.results.map(
-                function(results){
-                    var cardStyle = {
-                    width: '300',
-
-                 }
+                //function(results){
+                (results) => {
                 return <GridTile
                         key={results.hike_image}
                         title={<span>{results.title} {results.year}</span>}
@@ -96,6 +93,7 @@ class MyHikeListGrid extends React.Component {
                        >
                           <img src={results.hike_image} />
                     </GridTile>
+
             })
         }
         return (
