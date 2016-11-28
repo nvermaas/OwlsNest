@@ -36,10 +36,13 @@ class MyHikeListGrid extends React.Component {
 
     constructor(props) {
         console.log("constructor")
+
         super(props);
 
-        this.handleTouchTap = this.handleTouchTap.bind(this);
+        console.log("this.props = ",this.props)
 
+        //this.handleTouchTap = this.handleTouchTap.bind(this);
+        this.loadHikesFromServer = this.loadHikesFromServer.bind(this);
         this.state = {data: ''};
 
         // from now on::
@@ -55,6 +58,8 @@ class MyHikeListGrid extends React.Component {
 
    loadHikesFromServer() {
         console.log("loadHikesFromServer")
+        console.log("this = ",this)
+        console.log("this.props = ",this.props)
         $.ajax({
             url: this.props.url,
             datatype: 'json',
