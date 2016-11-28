@@ -10,6 +10,10 @@ function handleTouchTap() {
   alert('onTouchTap triggered on the title component');
 }
 
+function handleClick() {
+  alert('click!');
+}
+
 const styles = {
   title: {
     cursor: 'pointer',

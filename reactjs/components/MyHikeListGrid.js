@@ -14,8 +14,10 @@ import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import ActionExplore from 'material-ui/svg-icons/action/explore';
 import MapsEditLocation from 'material-ui/svg-icons/maps/edit-location';
-
 import RaisedButton from 'material-ui/RaisedButton';
+
+// myComponents
+//import MyAppBarExample from '/components/MyAppBar';
 
 const styles = {
   root: {
@@ -28,7 +30,10 @@ const styles = {
     height: 1000,
     overflowY: 'auto',
   },
-
+  gridTileStyle: {
+    fontFamily: "Raleway",
+    fontSize: 32,
+  },
 };
 
 
@@ -36,13 +41,16 @@ class MyHikeListGrid extends React.Component {
 
     constructor(props) {
         console.log("constructor")
-
         super(props);
 
         console.log("this.props = ",this.props)
 
-        //this.handleTouchTap = this.handleTouchTap.bind(this);
+        // bind the functions to 'this'
+         // see http://stackoverflow.com/questions/29732015/value-of-this-in-react-event-handler
         this.loadHikesFromServer = this.loadHikesFromServer.bind(this);
+        this.handleTouchTap = this.handleTouchTap.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+
         this.state = {data: ''};
 
         // from now on::
@@ -50,16 +58,24 @@ class MyHikeListGrid extends React.Component {
         // Correct = this.setState({data: ''});
     }
 
-    // if icon is clicked
+    // if icon is touchTapped
     handleTouchTap() {
        console.log("handleTouchTap")
-       this.setState({data: ''});
+       alert('touchTap!!');
+       //this.setState({data: ''});
+    }
+
+    // if icon is clicked
+    handleClick() {
+       console.log("handleClick")
+       console.log(this)
+       alert('click!');
+       //this.setState({data: ''});
     }
 
    loadHikesFromServer() {
-        console.log("loadHikesFromServer")
-        console.log("this = ",this)
-        console.log("this.props = ",this.props)
+        console.log("loadHikesFromServer(",this.props,")")
+        //console.log("this.props = ",this.props)
         $.ajax({
             url: this.props.url,
             datatype: 'json',
@@ -85,13 +101,13 @@ class MyHikeListGrid extends React.Component {
             var myHikeNodesGrid = this.state.data.results.map(
                 //function(results){
                 (results) => {
-                return <GridTile
+                return <GridTile style = {styles.gridTileStyle}
                         key={results.hike_image_url}
                         title={<span>{results.title} {results.year}</span>}
                         subtitle={<span> {results.place} </span>}
+
                         actionIcon={
-                            //<IconButton onTouchTap={this.handleTouchTap}>
-                            <IconButton>
+                            <IconButton onTouchTap={this.handleTouchTap} onClick={this.handleClick}>
                                 <MapsEditLocation color="white" />
                             </IconButton>
                            }
@@ -105,7 +121,8 @@ class MyHikeListGrid extends React.Component {
             <MuiThemeProvider>
 
             <div>
-                <GridList cellHeight={180} cols={5} style={styles.gridList}>
+                {this.props.children}
+                <GridList cellHeight={200} cols={5} style={styles.gridList}>
                     {myHikeNodesGrid}
                 </GridList>
             </div>

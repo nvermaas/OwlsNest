@@ -19,14 +19,20 @@ import MyHikeListGrid from './components/MyHikeListGrid';
 //import MyPaperChild from './components/MyPaperChild'
 
 
-render(<MyAppBarExample />, document.getElementById('myHeaderContainer'));
+ReactDOM.render(<MyAppBarExample />, document.getElementById('myHeaderContainer'));
+
 
 //render(<MyPaperChild />, document.getElementById('myPaperContainer'));
 
-render(<MyAwesomeReactComponent />,document.getElementById('myMaterialContainer1'));
+//render(<MyAwesomeReactComponent />,document.getElementById('myMaterialContainer1'));
 
 
 //render(<MyHikeListGrid url='/hiking/rest' pollInterval={5000} />,document.getElementById('myListContainer'));
-render(<MyHikeListGrid url='/hiking/rest' pollInterval={5000} />,document.getElementById('myListContainer'));
+ReactDOM.render(
+    <div>
+        <MyHikeListGrid url='/hiking/rest' pollInterval={5000}></MyHikeListGrid>
+    </div>,
+    document.getElementById('myListContainer')
+ );
 
 //render(<MyMaterialExample />, document.getElementById('myMaterialContainer2'));
