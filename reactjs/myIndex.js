@@ -4,9 +4,7 @@ import ReactDOM from 'react-dom'
 import {render} from 'react-dom';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import MyAwesomeReactComponent from './components/MyAwesomeReactComponent';
-import MyMaterialExample from './components/MaterialExample';
-import MyAppBarExample from './components/MyAppBar';
+
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 // Needed for onTouchTap
@@ -17,13 +15,6 @@ import MyHikeListGrid from './components/MyHikeListGrid';
 //import MyHikeListGrid from './components/MyHikeListGridBackup';
 
 //import MyPaperChild from './components/MyPaperChild'
-
-
-ReactDOM.render(<MyAppBarExample />, document.getElementById('myHeaderContainer'));
-
-
-//render(<MyPaperChild />, document.getElementById('myPaperContainer'));
-
 //render(<MyAwesomeReactComponent />,document.getElementById('myMaterialContainer1'));
 
 

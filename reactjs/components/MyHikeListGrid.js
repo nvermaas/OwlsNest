@@ -17,7 +17,9 @@ import MapsEditLocation from 'material-ui/svg-icons/maps/edit-location';
 import RaisedButton from 'material-ui/RaisedButton';
 
 // myComponents
-//import MyAppBarExample from '/components/MyAppBar';
+import MyAppBarExample from './MyAppBar';
+import MyAwesomeReactComponent from './MyAwesomeReactComponent';
+import MyMaterialExample from './MaterialExample';
 
 const styles = {
   root: {
@@ -122,6 +124,8 @@ class MyHikeListGrid extends React.Component {
 
             <div>
                 {this.props.children}
+                <MyAppBarExample />
+                <MyAwesomeReactComponent/>
                 <GridList cellHeight={200} cols={5} style={styles.gridList}>
                     {myHikeNodesGrid}
                 </GridList>
