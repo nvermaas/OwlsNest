@@ -87,12 +87,12 @@ var MyHikeListGrid = React.createClass({
                  }
                 return <GridTile
 
-                        key={results.hike_image}
+                        key={results.hike_image_url}
                         title={results.title}
                         subtitle={<span> {results.place} </span>}
                         actionIcon={<IconButton><ActionExplore color="white" /></IconButton>}
                        >
-                          <img src={results.hike_image} />
+                          <img src={results.hike_image_url} />
                     </GridTile>
             })
         }
