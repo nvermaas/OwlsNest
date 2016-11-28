@@ -15,15 +15,15 @@
 
                 {% for hike in my_hikes_all %}
                     {% if hike.visible == 1 %}
-                    <div class="col-sm-4 col-lg-4">
+                    <div class="col-sm-2 col-lg-2">
                         <div class="thumbnail">
-                            <a href="{{ hike.hike_image_url }}">
+                            <a href="{% url 'hiking:details' hike.pk %}">
                                 <!-- <img src="{{ hike.url }}" class="img-responsive"> -->
                                 <img src="{{ hike.hike_image_url }}" class="img-rounded">
                                 <!-- <img src="http://127.0.0.1:8000/media/IMG_5117.JPG" class="img-responsive"> -->
                             </a>
                             <div class="caption">
-                                <h3>{{ hike.title }} {{ hike.year }} - <small>{{ hike.place }}</small></h3>
+                                <h4>{{ hike.title }} {{ hike.year }} - <small>{{ hike.place }}</small></h4>
                                 <!-- View Details -->
 
                                 <a href="{% url 'hiking:details' hike.pk %}" class="btn btn-primary btn-sm" role="button">View Details</a>

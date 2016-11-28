@@ -29,7 +29,7 @@ const styles = {
   },
   gridList: {
     width: 1500,
-    height: 1000,
+    height: 800,
     overflowY: 'auto',
   },
   gridTileStyle: {
