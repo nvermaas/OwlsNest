@@ -18,7 +18,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 // myComponents
 import MyAppBarExample from './MyAppBar';
-import MyAwesomeReactComponent from './MyAwesomeReactComponent';
+import MyButton from './MyButton';
 import MyMaterialExample from './MaterialExample';
 
 const styles = {
@@ -68,11 +68,22 @@ class MyHikeListGrid extends React.Component {
     }
 
     // if icon is clicked
-    handleClick() {
-       console.log("handleClick")
-       console.log(this)
-       alert('click!');
-       //this.setState({data: ''});
+    handleClick(e) {
+       // see https://facebook.github.io/react/docs/events.html
+       console.log("handleClick");
+       console.log(this);
+       console.log(e);
+    }
+
+   // if icon is clicked
+    onItemClick(item, e) {
+      see: http://derpturkey.com/react-pass-value-with-onclick/
+       console.log("onItemClick");
+       console.log(this);
+       console.log(e);
+       console.log("item",item)
+       console.log("id",item.id)
+       console.log("title",item.title)
     }
 
    loadHikesFromServer() {
@@ -100,21 +111,20 @@ class MyHikeListGrid extends React.Component {
         if (this.state.data) {
             console.log('DATA!')
 
-            var myHikeNodesGrid = this.state.data.results.map(
-                //function(results){
-                (results) => {
+            var myHikeNodesGrid = this.state.data.results.map((myResult) => {
+                var boundItemClick = this.onItemClick.bind(this, myResult);
                 return <GridTile style = {styles.gridTileStyle}
-                        key={results.hike_image_url}
-                        title={<span>{results.title} {results.year}</span>}
-                        subtitle={<span> {results.place} </span>}
+                        key={myResult.id}
+                        title={<span>{myResult.title} {myResult.year}</span>}
+                        subtitle={<span> {myResult.place} </span>}
 
                         actionIcon={
-                            <IconButton onTouchTap={this.handleTouchTap} onClick={this.handleClick}>
+                            <IconButton name={myResult.id} myKey={myResult.id} onTouchTap={this.handleTouchTap} onClick={boundItemClick}>
                                 <MapsEditLocation color="white" />
                             </IconButton>
                            }
                        >
-                          <img src={results.hike_image_url} />
+                          <img src={myResult.hike_image_url} />
                     </GridTile>
 
             })
@@ -125,7 +135,8 @@ class MyHikeListGrid extends React.Component {
             <div>
                 {this.props.children}
                 <MyAppBarExample />
-                <MyAwesomeReactComponent/>
+                <MyButton title="first"/>
+                <MyButton title="next"/>
                 <GridList cellHeight={200} cols={5} style={styles.gridList}>
                     {myHikeNodesGrid}
                 </GridList>
