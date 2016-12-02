@@ -17,9 +17,8 @@ import MapsEditLocation from 'material-ui/svg-icons/maps/edit-location';
 import RaisedButton from 'material-ui/RaisedButton';
 
 // myComponents
-import MyAppBarExample from './MyAppBar';
-import MyButton from './MyButton';
 import MyMaterialExample from './MaterialExample';
+import myStore from '../MyStore';
 
 const styles = {
   root: {
@@ -50,10 +49,13 @@ class MyHikeListGrid extends React.Component {
         // bind the functions to 'this'
          // see http://stackoverflow.com/questions/29732015/value-of-this-in-react-event-handler
         this.loadHikesFromServer = this.loadHikesFromServer.bind(this);
+        this.loadHikeDetailsFromServer = this.loadHikeDetailsFromServer.bind(this);
+
         this.handleTouchTap = this.handleTouchTap.bind(this);
         this.handleClick = this.handleClick.bind(this);
 
-        this.state = {data: ''};
+        this.state = {details : '',
+                      data: ''};
 
         // from now on::
         // Wrong   = this.state.data = '';
@@ -79,11 +81,13 @@ class MyHikeListGrid extends React.Component {
     onItemClick(item, e) {
       see: http://derpturkey.com/react-pass-value-with-onclick/
        console.log("onItemClick");
-       console.log(this);
        console.log(e);
-       console.log("item",item)
-       console.log("id",item.id)
-       console.log("title",item.title)
+       console.log("item",item);
+
+       var myUrl = "http://localhost:8000/hiking/"+item.id+"/rest";
+       myStore.dispatch({type: "SET_HIKE_URL", payload: myUrl});
+       myStore.dispatch({type: "LOAD_DETAILS_FROM_SERVER", payload: myUrl});
+       //this.loadHikeDetailsFromServer(myUrl);
     }
 
    loadHikesFromServer() {
@@ -97,12 +101,30 @@ class MyHikeListGrid extends React.Component {
                 this.setState({data: data});
             }.bind(this)
         })
+        console.log("details: ",this.state.details);
+
+    }
+
+   loadHikeDetailsFromServer(myUrl) {
+        console.log("MyHikeListGrid.loadDetailsFromServer(",myUrl,")")
+
+        $.ajax({
+            url: myUrl,
+            datatype: 'json',
+            cache: false,
+            success: function(data) {
+                console.log(data);
+                this.setState({details: data});
+            }.bind(this)
+        })
+
+        console.log("details: ",this.state.details);
     }
 
     componentDidMount() {
         console.log("componentDidMount")
-        this.loadHikesFromServer();
-        setInterval(this.loadHikesFromServer, this.props.pollInterval)
+        this.loadHikesFromServer(this.props.url);
+        //setInterval(this.loadHikesFromServer, this.props.pollInterval)
     }
 
     render() {
@@ -133,10 +155,6 @@ class MyHikeListGrid extends React.Component {
             <MuiThemeProvider>
 
             <div>
-                {this.props.children}
-                <MyAppBarExample />
-                <MyButton title="first"/>
-                <MyButton title="next"/>
                 <GridList cellHeight={200} cols={5} style={styles.gridList}>
                     {myHikeNodesGrid}
                 </GridList>
