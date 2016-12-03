@@ -12,8 +12,7 @@ class MyHikeList extends React.Component {
 
     render() {
         return (
-            <div className="content">
-                {this.props.children}
+            <div>
                 <MyHikeListGrid url='/hiking/rest' pollInterval={5000}></MyHikeListGrid>
             </div>
 

@@ -32,6 +32,24 @@ const myHikeReducer = (state={}, action) => {
              console.log("title = "+state.title)
              break;
         }
+
+        case "LOAD_ALL_FROM_SERVER": {
+            var myUrl = action.payload;
+            console.log("hikeReducer.loadAllFromServer(",myUrl,")")
+
+            $.ajax({
+                url: myUrl,
+                datatype: 'json',
+                cache: false,
+                success: function(data) {
+                    console.log(data);
+                    state = {data: data};
+                }
+            })
+             console.log("results: ",state);
+             console.log("results = "+state.data)
+             break;
+        }
     }
     return state;
 };

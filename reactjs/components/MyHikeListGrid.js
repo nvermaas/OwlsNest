@@ -18,7 +18,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 // myComponents
 import MyMaterialExample from './MaterialExample';
-import myStore from '../MyStore';
+import myStore from '../myStore';
 
 const styles = {
   root: {
@@ -132,7 +132,6 @@ class MyHikeListGrid extends React.Component {
 
         if (this.state.data) {
             console.log('DATA!')
-
             var myHikeNodesGrid = this.state.data.results.map((myResult) => {
                 var boundItemClick = this.onItemClick.bind(this, myResult);
                 return <GridTile style = {styles.gridTileStyle}

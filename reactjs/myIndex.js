@@ -8,11 +8,12 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider, connect } from 'react-redux';
 
 import thunk from 'redux-thunk';
-import myStore from './MyStore';
+import myStore from './myStore';
 
 import MyHikingApp from './components/MyHikingApp';
 import MyHikeList from './components/MyHikeList';
-import MyHome from './components/MyHome';
+import MyHikeDetails from './components/MyHikeDetails';
+import MyTabs from './components/MyTabs';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -39,11 +40,13 @@ myStore.subscribe(() => {
 
 ReactDOM.render(
     <Provider store={myStore}>
-    <Router>
-        <Route path="/" component={MyHikingApp}>
-            <IndexRoute component={MyHikeList}/>
-        </Route>
-    </Router>
-    </Provider>,
+        <Router>
+           <Route path="/" component={MyHikingApp}>
+               <IndexRoute component={MyTabs}/>
+           </Route>
+           <Route path="overview" component={MyHikeList}/>
+           <Route path="details" component={MyHikeDetails}/>
+     </Router>
+     </Provider>,
     document.getElementById('myContainer')
  );
