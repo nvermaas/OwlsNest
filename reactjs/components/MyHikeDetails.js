@@ -5,6 +5,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
+import { connect } from 'react-redux';
+
+import myStore from '../myStore';
+
 const styles = {
   myImage: {
     width: 500,
@@ -46,9 +50,29 @@ class MyHikeDetails extends React.Component {
     handleClick(e) {
        // see https://facebook.github.io/react/docs/events.html
        console.log("MyHikeDetails.handleClick");
+       console.log("this.props = ",this.props);
+       console.log("this.props.hiking_url = ",this.props.hiking_url);
+       console.log("this.state = ",this.state);
+       console.log("this.state.title = ",this.state.title);
+       console.log(myStore.getState())
 
+       var myUrl = this.props.hiking_url
+       myStore.dispatch({type: "LOAD_DETAILS_FROM_SERVER", payload: myUrl});
+
+       console.log("this.props = ",this.props);
+       console.log("this.props.hiking_url = ",this.props.hiking_url);
+       console.log("this.state = ",this.state);
+       console.log("this.state.title = ",this.state.title);
+       console.log(myStore.getState())
     }
 
+    componentWillMount() {
+        console.log("MyHikeDetails.componentWillMount");
+    }
+
+    componentDidMount() {
+        console.log("MyHikeDetails.componentDidMount")
+    }
 
     render() {
         return (
@@ -59,6 +83,7 @@ class MyHikeDetails extends React.Component {
                         subtitle={this.state.hike.year}
                         actAsExpander={true}
                         showExpandableButton={true}
+                        onClick={this.handleClick}
                      />
                      <CardMedia
                            overlay={<CardTitle title={this.state.hike.place} subtitle={this.state.hike.duration} />}
@@ -76,4 +101,13 @@ class MyHikeDetails extends React.Component {
     }
 }
 
-export default MyHikeDetails;
+// connect this (smart) object to the store
+function mapStateToProps(state) {
+  return {
+    hike: state.hike,
+    hiking_url: state.hiking_url
+  };
+
+}
+
+export default connect(mapStateToProps)(MyHikeDetails);

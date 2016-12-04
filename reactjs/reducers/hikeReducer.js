@@ -1,7 +1,11 @@
 
 // this is the reducer for changing the hiking object
+export function getSelectedHike(state) {
+  return state.details;
+}
 
 const myHikeReducer = (state={}, action) => {
+    console.log("hikeReducer")
     switch(action.type) {
         case "SET_HIKE_ID": {
             // state.hike.id = action.payload;  //wrong! state should be inmutable!
@@ -23,13 +27,13 @@ const myHikeReducer = (state={}, action) => {
                 datatype: 'json',
                 cache: false,
                 success: function(data) {
-                    console.log(data);
-                    console.log(data.title)
-                    state = {details: data};
+                    console.log("data=", data);
+                    console.log("data.title=",data.title)
+                    state = {...state, hike: data};
                 }
             })
-             console.log("details: ",state);
-             console.log("title = "+state.title)
+             console.log("state.hike = ",state.hike);
+             console.log("state = "+state)
              break;
         }
 
@@ -46,8 +50,8 @@ const myHikeReducer = (state={}, action) => {
                     state = {data: data};
                 }
             })
-             console.log("results: ",state);
-             console.log("results = "+state.data)
+             console.log("myHikeReducer.state: ",state);
+             console.log("myHikeReducer.state.data = "+state.data)
              break;
         }
     }

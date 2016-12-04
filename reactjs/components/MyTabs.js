@@ -23,6 +23,8 @@ class MyTabs extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log("MyTabs.constructor(",this.props,")")
+
     this.state = {
       value: 'tabOverview',
     };

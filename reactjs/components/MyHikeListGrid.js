@@ -85,7 +85,7 @@ class MyHikeListGrid extends React.Component {
        console.log("item",item);
 
        var myUrl = "http://localhost:8000/hiking/"+item.id+"/rest";
-       myStore.dispatch({type: "SET_HIKE_URL", payload: myUrl});
+       myStore.dispatch({type: "SET_DETAILS_URL", payload: myUrl});
        myStore.dispatch({type: "LOAD_DETAILS_FROM_SERVER", payload: myUrl});
        //this.loadHikeDetailsFromServer(myUrl);
     }
