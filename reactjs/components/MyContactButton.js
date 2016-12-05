@@ -1,5 +1,5 @@
 import React from 'react';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {blue500,darkBlack, lightBlack, white} from 'material-ui/styles/colors';
@@ -8,7 +8,8 @@ const styles = {
 
   buttonStyle: {
     fontFamily: "Raleway",
-    color: white,
+    backgroundColor: 'transparent',
+    color: blue500,
   },
 };
 
@@ -49,7 +50,7 @@ class MyContactButton extends React.Component {
     render() {
         return (
             <MuiThemeProvider>
-                <FlatButton labelStyle={styles.buttonStyle} label={this.state.myLabel} onClick={this.handleClick} />
+                <RaisedButton labelStyle={styles.buttonStyle} label={this.state.myLabel} onClick={this.handleClick} />
             </MuiThemeProvider>
         )
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import MyHome from './MyHome';
 import MyHikeListGrid from './MyHikeListGrid';
+import MyAppBar from './MyAppBar';
 
 // encapsulate the Grid and the properties
 class MyHikeList extends React.Component {
@@ -13,6 +14,7 @@ class MyHikeList extends React.Component {
     render() {
         return (
             <div>
+                <MyAppBar />
                 <MyHikeListGrid url='/hiking/rest' pollInterval={5000}></MyHikeListGrid>
             </div>
 

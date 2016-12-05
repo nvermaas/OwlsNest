@@ -19,6 +19,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 // myComponents
 import MyMaterialExample from './MaterialExample';
 import myStore from '../myStore';
+import { Link } from 'react-router'
 
 const styles = {
   root: {
@@ -81,8 +82,6 @@ class MyHikeListGrid extends React.Component {
     onItemClick(item, e) {
       see: http://derpturkey.com/react-pass-value-with-onclick/
        console.log("onItemClick");
-       console.log(e);
-       console.log("item",item);
 
        var myUrl = "http://localhost:8000/hiking/"+item.id+"/rest";
        myStore.dispatch({type: "SET_DETAILS_URL", payload: myUrl});
@@ -140,7 +139,12 @@ class MyHikeListGrid extends React.Component {
                         subtitle={<span> {myResult.place} </span>}
 
                         actionIcon={
-                            <IconButton name={myResult.id} myKey={myResult.id} onTouchTap={this.handleTouchTap} onClick={boundItemClick}>
+                             <IconButton name={myResult.id}
+                                         myKey={myResult.id}
+                                         onTouchTap={this.handleTouchTap}
+                                         onClick={boundItemClick}
+                                         containerElement={<Link to="/details"/>}
+                             >
                                 <MapsEditLocation color="white" />
                             </IconButton>
                            }

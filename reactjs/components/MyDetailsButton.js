@@ -4,8 +4,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {blue500,darkBlack, lightBlack, white} from 'material-ui/styles/colors';
 
-import { Link } from 'react-router'
-
 const styles = {
 
   buttonStyle: {
@@ -17,28 +15,28 @@ const styles = {
 
 // Using ES6 classes instead of React.createClass
 // see https://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html
-class MyOverviewButton extends React.Component {
+class MyDetailsButton extends React.Component {
 
     constructor(props) {
-        console.log('MyOverviewButton constructor')
+        console.log('MyDetailsButton constructor')
         super(props);
     }
 
    // if button is clicked
     handleClick(e) {
        // see https://facebook.github.io/react/docs/events.html
-       console.log("MyOverviewButton.handleClick");
-       <Link to="/overview" activeClassName="active">Overview</Link>
+       console.log("button.handleClick");
+
     }
 
 
     render() {
         return (
             <MuiThemeProvider>
-                <FlatButton labelStyle={styles.buttonStyle} label="Overview" onClick={this.handleClick} />
+                <FlatButton labelStyle={styles.buttonStyle} label="Details" onClick={this.handleClick} />
             </MuiThemeProvider>
         )
     }
 }
 
-export default MyOverviewButton;
+export default MyDetailsButton;

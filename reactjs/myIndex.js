@@ -14,6 +14,8 @@ import MyHikingApp from './components/MyHikingApp';
 import MyHikeList from './components/MyHikeList';
 import MyHikeDetails from './components/MyHikeDetails';
 import MyTabs from './components/MyTabs';
+import MyHome from './components/MyHome';
+import MyAppBar from './components/MyAppBar';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -42,11 +44,12 @@ ReactDOM.render(
     <Provider store={myStore}>
         <Router>
            <Route path="/" component={MyHikingApp}>
-               <IndexRoute component={MyTabs}/>
+               <IndexRoute component={MyHikeList}/>
            </Route>
+           <Route path="tabs" component={MyTabs}/>
            <Route path="overview" component={MyHikeList}/>
            <Route path="details" component={MyHikeDetails}/>
-     </Router>
+        </Router>
      </Provider>,
     document.getElementById('myContainer')
  );

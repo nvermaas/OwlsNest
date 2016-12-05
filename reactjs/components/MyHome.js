@@ -4,7 +4,7 @@ class MyHome extends React.Component {
     render() {
         return (
             <div>
-                <h2>Hello MyHome</h2>
+                <h2>Welcome to the Home page of the Hiking app</h2>
             </div>
         )
     }

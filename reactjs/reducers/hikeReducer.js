@@ -5,7 +5,7 @@ export function getSelectedHike(state) {
 }
 
 const myHikeReducer = (state={}, action) => {
-    console.log("hikeReducer")
+    console.log("hikeReducer(",action,")")
     switch(action.type) {
         case "SET_HIKE_ID": {
             // state.hike.id = action.payload;  //wrong! state should be inmutable!
@@ -27,9 +27,12 @@ const myHikeReducer = (state={}, action) => {
                 datatype: 'json',
                 cache: false,
                 success: function(data) {
-                    console.log("data=", data);
-                    console.log("data.title=",data.title)
+                    console.log("hikeReducer.data=", data);
+                    console.log("hikeReducer.data.title=",data.title)
                     state = {...state, hike: data};
+
+                    console.log("state.hike = ",state.hike);
+                    console.log("state = "+state)
                 }
             })
              console.log("state.hike = ",state.hike);

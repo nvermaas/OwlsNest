@@ -8,6 +8,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
 
 import myStore from '../myStore';
+import MyAppBar from './MyAppBar';
 
 const styles = {
   myImage: {
@@ -66,36 +67,66 @@ class MyHikeDetails extends React.Component {
        console.log(myStore.getState())
     }
 
+    loadHikeDetailsFromServer(myUrl) {
+        console.log("MyHikeListDetails.loadDetailsFromServer(",myUrl,")")
+
+        $.ajax({
+            url: myUrl,
+            datatype: 'json',
+            cache: false,
+            success: function(data) {
+                console.log(data);
+                this.setState({hike: data});
+            }.bind(this)
+        })
+
+        console.log("hike: ",this.state.hike);
+    }
+
     componentWillMount() {
         console.log("MyHikeDetails.componentWillMount");
+         console.log("this.state = ",this.state);
+         console.log("this.props = ",this.props);
+          console.log("this.props.hike = ",this.props.hike);
     }
 
     componentDidMount() {
         console.log("MyHikeDetails.componentDidMount")
+        console.log("this.state = ",this.state);
+        console.log("this.props.hiking_url = ",this.props.hiking_url);
+
+        this.loadHikeDetailsFromServer(this.props.hiking_url)
     }
 
     render() {
+            if (this.state.hike) {
+                console.log('DETAILS DATA!')
+            }
         return (
-            <MuiThemeProvider>
-                <Card>
-                    <CardHeader
-                        title={this.state.hike.title}
-                        subtitle={this.state.hike.year}
-                        actAsExpander={true}
-                        showExpandableButton={true}
-                        onClick={this.handleClick}
-                     />
-                     <CardMedia
-                           overlay={<CardTitle title={this.state.hike.place} subtitle={this.state.hike.duration} />}
-                      >
-                        <img className="styles.myImage" src={this.state.hike.image} />
-                     </CardMedia>
 
-                      <CardActions>
-                        <FlatButton label="Edit" />
-                        <FlatButton label="Delete" />
-                       </CardActions>
-                   </Card>
+           <MuiThemeProvider>
+                <div>
+                   <MyAppBar />
+                    <Card>
+                        <CardHeader
+                            title={this.state.hike.title}
+                            subtitle={this.state.hike.year}
+                            actAsExpander={true}
+                            showExpandableButton={true}
+                            onClick={this.handleClick}
+                         />
+                         <CardMedia
+                               overlay={<CardTitle title={this.state.hike.place} subtitle={this.state.hike.duration} />}
+                          >
+                            <img className="styles.myImage" src={this.state.hike.image} />
+                        </CardMedia>
+
+                        <CardActions>
+                            <FlatButton label="Edit" />
+                            <FlatButton label="Delete" />
+                        </CardActions>
+                    </Card>
+                </div>
             </MuiThemeProvider>
         )
     }
@@ -103,6 +134,7 @@ class MyHikeDetails extends React.Component {
 
 // connect this (smart) object to the store
 function mapStateToProps(state) {
+    console.log("MyHikeDetails.mapStateToProps(",state,")")
   return {
     hike: state.hike,
     hiking_url: state.hiking_url
