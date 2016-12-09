@@ -25,7 +25,7 @@ from .models import Hike, TripDetail
 from .forms import myLoginForm,myRegisterForm, myContactForm
 from .serializers import HikeSerializer, TripDetailSerializer
 
-from .static.hiking import config
+from . import config
 
 # constants, read from a config later
 
