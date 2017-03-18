@@ -61,4 +61,9 @@ urlpatterns = [
     # /hiking/hike/<hike_id>/delete_TripDetail
     url(r'delete_tripdetail/(?P<pk>[0-9]+)/$', views.DeleteTripDetail.as_view(), name='detail-delete'),
 
+    # /search/ (triggered by 'action' property of search_box in base.html)
+    url(r'^search/$', views.hike_search, name='hike_search'),
+    # url(r'^results/$', views.hike_results, name='hike_results'),
+    # /query/
+    url(r'^query', views.QueryView.as_view(), name='hike_query'),
 ]

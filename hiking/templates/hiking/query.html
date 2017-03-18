@@ -1,0 +1,52 @@
+{% extends 'hiking/base.html' %}
+
+
+
+{% block myBlock %}
+
+
+<div class="hiking-container container-fluid">
+
+    <!-- Hikes -->
+
+        <div class="row">
+
+            {% if my_hikes_all %}
+
+                {% for hike in my_hikes_all %}
+                    {% if hike.visible == 1 %}
+                    <div class="col-sm-4 col-lg-4">
+                        <div class="thumbnail">
+                            <a href="{% url 'hiking:details' hike.pk %}">
+                                <!-- <img src="{{ hike.url }}" class="img-responsive"> -->
+                                <img src="{{ hike.hike_image_url }}" class="img-rounded">
+                                <!-- <img src="http://127.0.0.1:8000/media/IMG_5117.JPG" class="img-responsive"> -->
+                            </a>
+                            <div class="caption">
+                                <h4>{{ hike.title }} {{ hike.year }} - <small>{{ hike.place }}</small></h4>
+                                <!-- View Details -->
+
+                                <a href="{% url 'hiking:details' hike.pk %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+                {% endfor %}
+
+            {% else %}
+                <div class="col-sm-12">
+                     <br>
+                      <a href="{% url 'hiking:hike-add' %}">
+                        <button type="button" class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus"></span>&nbsp; Add a Hike
+                       </button>
+                     </a>
+               </div>
+            {% endif %}
+        </div>
+    {% include 'hiking/hike_pagination.html' %}
+</div>
+
+
+{% endblock %}

@@ -2,14 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block myBlockTitle %}Hiking - Django{% endblock %}</title>
+    <title>{% block myBlockTitle %}Hiking Nico{% endblock %}</title>
 
     <!-- loads the path to static files -->
     {% load staticfiles %}
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'hiking/mystyle.css' %}"/>
 
+    <link rel="stylesheet" type="text/css" href="{% static 'hiking/mystyle.css' %}"/>
+<!--
+    <link rel="stylesheet" type="text/css" href="/static/hiking/mystyle.css"/>
+
+   <link rel="stylesheet" type="text/css" href="http://178.84.189.57/xs4all/mystyle.css"/>
+-->
 
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
@@ -20,6 +25,8 @@
     <script src="https://unpkg.com/react@15/dist/react.js"></script>
     <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    {% block extra_js %}{% endblock %}
 
 </head>
 <body>
@@ -35,16 +42,16 @@
 
                 </button>
 
-                <a class="navbar-brand" href="{% url 'hiking:index' %}">My Hiking Trips</a>
+                <a class="navbar-brand" href="{% url 'hiking:index' %}"> <span class="glyphicon glyphicon-tent" aria-hidden="true"></span>  My Hiking Trips</a>
             </div>
 
             <!-- Items -->
             <div class="collapse navbar-collapse" id="myTopNavBar">
 
-
-                <form class="navbar-form navbar-left" role="Search"  method="get" action="#">
+                <!-- note the rerouting to 'hiking/query', which is captured by urls.py -->
+                <form class="navbar-form navbar-left" role="Search"  method="get" action="query/">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="q" value="">
+                        <input type="text" class="form-control" name="search_box" value="">
 
                     </div>
                     <button type="submit" class="bbtn btn-default">Search</button>
@@ -67,26 +74,13 @@
                         {% if user.is_authenticated %}
                              <a class="navbar-brand" href="{% url 'hiking:index' %}"> {{ user.username }} (admin)</a>
                             {{ user.username }}
-                        {% else %}
-                            <a class="navbar-brand" href="{% url 'hiking:login' %}"> No User</a>
                         {% endif %}
                      </li>
 
-                     <li class="">
-                        <a href="{% url 'hiking:login' %}">
-                            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp; Login
-                        </a>
-                    </li>
-
-                    <li class="">
-                        <a href="#">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
-                        </a>
-                    </li>
 
                      <li class="">
                         <a href="{% url 'hiking:contact' %}">
-                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp; Contact
+                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp; (version 18 mar 2017)
                         </a>
                     </li>
                 </ul>

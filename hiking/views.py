@@ -25,6 +25,9 @@ from .models import Hike, TripDetail
 from .forms import myLoginForm,myRegisterForm, myContactForm
 from .serializers import HikeSerializer, TripDetailSerializer
 
+from django.shortcuts import render_to_response
+from django.template.context import RequestContext
+from django.db.models import Q
 from . import config
 
 # constants, read from a config later
@@ -104,6 +107,7 @@ class IndexView(generic.ListView):
         paginator = Paginator(hike_list, config.HIKES_PER_PAGE)  # Show x hikes per page
 
         page = self.request.GET.get('page')
+
         try:
             hikes = paginator.page(page)
         except PageNotAnInteger:
@@ -252,3 +256,50 @@ class ReactView(generic.ListView):
         #return Hike.objects.all()
         # sort on year descending
         return Hike.objects.order_by('year')
+
+
+# //http://localhost:8000/hiking/search/?search_box=swe
+def hike_search(request):
+    print("hike_search")
+    if request.method == 'GET': # If the form is submitted
+        print("congratulations, it is a get!")
+        q = request.GET.get('search_box', None)
+        print("q = "+q)
+        results = Hike.objects.filter(Q(title__contains=q))
+        print(results)
+        context = {'results': results}
+
+        return render(request,'hiking/results.html', context)
+
+
+class QueryView(generic.ListView):
+    template_name = 'hiking/query.html'
+
+    # by default this returns the list in an object called object_list, so use 'object_list' in the html page.
+    # but if 'context_object_name' is defined, then this returned list is named and can be accessed that way in html.
+    context_object_name = 'my_hikes_all'
+
+
+    def get_queryset(self):
+        print("QueryView.get_queryset")
+        q = self.request.GET.get('search_box', None)
+
+        hike_list = Hike.objects.filter(
+            Q(title__contains=q) |
+            Q(place__contains=q) |
+            Q(year__contains=q) |
+            Q(country__contains=q)).order_by('-year')
+        paginator = Paginator(hike_list, 100)  # Show x hikes per page
+
+        page = self.request.GET.get('page')
+        print(page)
+        try:
+            hikes = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            hikes = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            hikes = paginator.page(paginator.num_pages)
+
+        return hikes
