@@ -1,3 +1,3 @@
-VERSION = "1.0 (7 dec 2016)"
-HIKES_PER_PAGE = 9
+VERSION = "1.0 (10 dec 2016)"
+HIKES_PER_PAGE = 6
 

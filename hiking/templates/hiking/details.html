@@ -1,5 +1,5 @@
 {% extends 'hiking/base.html' %}
-{% block myBlockTitle %}Hikes{% endblock %}
+{% block myBlockTitle %}{{ hike.title }} - {{ hike.year }}{% endblock %}
 
 {% block myBlock %}
 
@@ -10,9 +10,10 @@
         <!-- Left Hike Info -->
         <div class="col-sm-3 col-md-3 col-lg-3">
             <div class="panel panel-default">
+                <div class="panel-heading">{{ hike.title }} {{ hike.year }}</div>
                 <div class="panel-body">
-                    <h2>{{ hike.title }} {{ hike.year }}</h2>
-                    <h3>{{ hike.place }}</h3>
+
+                    <h4>{{ hike.place }}</h4>
 
                     <a href="{{ hike.hike_image_url }}">
                         {% if hike.hike_image_url %}
@@ -21,10 +22,11 @@
                             <h3>No image to display</h3>
                         {% endif %}
                     </a>
+
                     <ul>
-                        <li><h4>Country  : {{ hike.country }}</h4></li>
-                        <li><h4>Period   : {{ hike.date }}</h4></li>
-                        <li><h4>Duration : {{ hike.duration }}</h4></li>
+                        <li><h4>{{ hike.country }}</h4></li>
+                        <li><h4>{{ hike.date }}</h4></li>
+                        <li><h4>{{ hike.duration }}</h4></li>
                     </ul>
                     <br>
 
@@ -69,7 +71,7 @@
 
 
             <div class="panel panel-default">
-
+            <div class="panel-heading">{{ hike.place }} </div>
                 <div class="col-sm-12">
 
 
@@ -86,11 +88,35 @@
                          {% for tripdetail in hike.tripdetail_set.all %}
 
                             <tr>
-                                <td>
-                                    <h3> {{ tripdetail.title }}</h3>
-                                    <h5> {{ tripdetail.description }} </h5>
+                                {% if tripdetail.kind == 'image' %}
+                                    <td class = "active">
+                                         <h4> {{ tripdetail.title }}</h4>
 
-                                    {% if user.is_authenticated %}
+                                         <a href="{{ tripdetail.details_url }}" target="_blank">
+                                             <img src="{{ tripdetail.details_url }}" class="img-responsive">
+                                         </a>
+                                        <h5> {{ tripdetail.description }} </h5>
+                                     </td>
+                                {% endif %}
+
+                                {% if tripdetail.kind == 'movie' %}
+                                    <td class="warning">
+                                          <a href="{{ tripdetail.details_url }}" target="_blank"><h4><span class="glyphicon glyphicon-film"></span> {{ tripdetail.title }}</h4></a>
+                                        <h5> {{ tripdetail.description }} </h5>
+                                    </td>
+
+                                {% endif %}
+
+                                {% if tripdetail.kind == 'link' %}
+                                    <td class = "warning">
+                                        <a href="{{ tripdetail.details_url }}" target="_blank"><h4><span class="glyphicon glyphicon-link"></span> {{ tripdetail.title }}</h4></a>
+                                        <h5> {{ tripdetail.description }} </h5>
+                                    </td>
+                                {% endif %}
+
+
+                                {% if user.is_authenticated %}
+                                    <td class = "danger">
                                         <div class="caption">
 
 
@@ -119,24 +145,10 @@
                                                     <span class="glyphicon glyphicon-trash"></span>
                                                 </button>
                                             </form>
-                                            <br>
+
                                          </div>
-                                    {% endif %}
-
-                                    {% if tripdetail.kind == 'image' %}
-                                         <a href="{{ tripdetail.details_url }}" target="_blank">
-                                                <img src="{{ tripdetail.details_url }}" class="img-responsive">
-                                           </a>
-                                    {% endif %}
-
-                                    {% if tripdetail.kind == 'movie' %}
-                                           <a href="{{ tripdetail.details_url }}" target="_blank"><h3><span class="glyphicon glyphicon-film"></span> Play Movie</h3></a>
-                                    {% endif %}
-
-                                    {% if tripdetail.kind == 'link' %}
-                                           <a href="{{ tripdetail.details_url }}" target="_blank"><h3><span class="glyphicon glyphicon-link"></span> Show Link</h3></a>
-                                    {% endif %}
-                                </td>
+                                    </td>
+                                {% endif %}
 
                             </tr>
 
