@@ -26,12 +26,12 @@ SECRET_KEY = '!sls2(u-2^+*(ob%hc5xrifx0i#ekgguj%c3i_k@ia001w$it0'
 DEBUG = False
 
 ALLOWED_HOSTS = ["80.101.27.83","localhost","192.168.178.32","127.0.0.1"]
-#CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
 INSTALLED_APPS = [
-#    'corsheaders',
+    'corsheaders',
     'hiking.apps.HikingConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,11 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+	'webpack_loader'
 ]
 
 MIDDLEWARE = [
- #   'corsheaders.middleware.CorsMiddleware',
- #   'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
