@@ -45,6 +45,17 @@
                </div>
             {% endif %}
         </div>
+
+
+    {% if user.is_authenticated %}
+    <div class="thumbnail">
+        <h4>REST API</h4>
+        <li class=""><a href="{% url 'hiking:hike-list-rest' %}">hiking list</a></li>
+        <li class=""><a href="{% url 'hiking:hike-details-rest' pk=62 %}">hike details example</a></li>
+        <li class=""><a href="{% url 'hiking:tripdetails-list-view-all' %}">tripdetails list</a></li>
+        <li class=""><a href="{% url 'hiking:tripdetails-detail-view' pk=100 %}">tripdetails example</a></li>
+    </div>
+    {% endif %}
     {% include 'hiking/hike_pagination.html' %}
 </div>
 
