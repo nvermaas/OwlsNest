@@ -41,6 +41,7 @@ class TripDetail(models.Model):
     class Meta:
         ordering = ['order']
 
+    # hike = models.ForeignKey(Hike, related_name='trip_details', on_delete=models.CASCADE)
     hike = models.ForeignKey(Hike, on_delete=models.CASCADE)
     title =  models.CharField(max_length=50, blank=True)
     description = models.TextField(max_length=3000, blank=True)

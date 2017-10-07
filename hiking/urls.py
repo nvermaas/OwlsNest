@@ -21,6 +21,13 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/rest$', views.HikeDetailRest.as_view(), name='hike-details-rest'),
     url(r'^(?P<pk>[0-9]+)/rest2', views.TripDetailsListRest.as_view(), name='tripreport-details-rest'),
 
+    # /hiking/<hike_id>/tripdetails
+
+    url(r'tripdetails/(?P<pk>[0-9]+)/$', views.TripDetailsLDetailView.as_view(), name='tripdetails-detail-view'),
+    url(r'^(?P<pk>[0-9]+)/tripdetails', views.TripDetailsListView.as_view(), name='tripdetails-list-view'),
+    url(r'^tripdetails/$', views.TripDetailsListViewAll.as_view(), name='tripdetails-list-view-all'),
+
+    #------------------------------------------------------------------------------------------
 
     # /hiking/react (temporary url to test react without the need to start a separate webserver
     url(r'^react$', views.ReactView.as_view(), name='react'),
@@ -66,4 +73,5 @@ urlpatterns = [
     # url(r'^results/$', views.hike_results, name='hike_results'),
     # /query/
     url(r'^query', views.QueryView.as_view(), name='hike_query'),
+    url(r'^(?P<pk>[0-9]+)/query/$', views.QueryView.as_view(), name='hike_query')
 ]

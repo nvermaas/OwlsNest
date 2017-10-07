@@ -86,6 +86,40 @@ class TripDetailsListRest(generics.ListCreateAPIView):
     queryset = TripDetail.objects.all()
     serializer_class = TripDetailSerializer
 
+class TripDetailsListViewAll(generics.ListCreateAPIView):
+    queryset = TripDetail.objects.all()
+    serializer_class = TripDetailSerializer
+
+    # overriding GET get_queryset to access the request (demoo)
+    def get_queryset(self):
+        print("TripDetailsListViewAll()")
+        queryset = TripDetail.objects.all()
+
+        return queryset
+
+class TripDetailsListView(generics.ListCreateAPIView):
+    queryset = TripDetail.objects.all()
+    serializer_class = TripDetailSerializer
+
+    # overriding GET get_queryset to access the request (demoo)
+    def get_queryset(self):
+        print("TripDetailsListView()")
+        print("request.data = " + str(self.request.data))
+        queryset = TripDetail.objects.all()
+
+        return queryset
+
+class TripDetailsLDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TripDetail.objects.all()
+    serializer_class = TripDetailSerializer
+
+    # overriding GET get_queryset to access the request (demoo)
+    def get_queryset(self):
+        print("TripDetailsLDetailView()")
+        # print("request.data = " + str(self.request.data))
+        queryset = TripDetail.objects.all()
+        return queryset
+
 
 
 # --- HTML API ---
