@@ -12,9 +12,6 @@ app_name = 'hiking'
 
 urlpatterns = [
     # === REST VIEWS ===
-    #url(r'^$', views.api_root), # this would short cut the index url
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-
     # /hiking/rest
     url(r'^rest/$', views.HikeListRest.as_view(), name='hike-list-rest'),
 

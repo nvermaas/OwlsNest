@@ -69,7 +69,7 @@ class HikeListRest(generics.ListCreateAPIView):
     """
     List all Hikes, or create a new Hike.
     """
-    queryset = Hike.objects.order_by('-year')
+    queryset = Hike.objects.order_by('-year','id')
     serializer_class = HikeSerializer
 
 class HikeDetailRest(generics.RetrieveUpdateDestroyAPIView):
