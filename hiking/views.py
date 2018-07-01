@@ -69,7 +69,7 @@ class HikeListRest(generics.ListCreateAPIView):
     """
     List all Hikes, or create a new Hike.
     """
-    queryset = Hike.objects.order_by('-year','id')
+    queryset = Hike.objects.order_by('-year','-id')
     serializer_class = HikeSerializer
 
 class HikeDetailRest(generics.RetrieveUpdateDestroyAPIView):
@@ -137,7 +137,7 @@ class IndexView(generic.ListView):
         return Hike.objects.order_by('-year')
 
     def get_queryset(self):
-        hike_list = Hike.objects.all().order_by('-year')
+        hike_list = Hike.objects.all().order_by('-year','-id')
         paginator = Paginator(hike_list, config.HIKES_PER_PAGE)  # Show x hikes per page
 
         page = self.request.GET.get('page')
