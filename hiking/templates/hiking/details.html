@@ -95,14 +95,14 @@
                                          <a href="{{ tripdetail.details_url }}" target="_blank">
                                              <img src="{{ tripdetail.details_url }}" class="img-responsive">
                                          </a>
-                                        <h5> {{ tripdetail.description }} </h5>
+                                        <p class ="prose"> {{ tripdetail.description }} </p>
                                      </td>
                                 {% endif %}
 
                                 {% if tripdetail.kind == 'movie' %}
                                     <td class="warning">
                                           <a href="{{ tripdetail.details_url }}" target="_blank"><h4><span class="glyphicon glyphicon-film"></span> {{ tripdetail.title }}</h4></a>
-                                        <h5> {{ tripdetail.description }} </h5>
+                                        <p class ="prose"> {{ tripdetail.description }} </p>
                                     </td>
 
                                 {% endif %}
@@ -110,7 +110,7 @@
                                 {% if tripdetail.kind == 'link' %}
                                     <td class = "warning">
                                         <a href="{{ tripdetail.details_url }}" target="_blank"><h4><span class="glyphicon glyphicon-link"></span> {{ tripdetail.title }}</h4></a>
-                                        <h5> {{ tripdetail.description }} </h5>
+                                        <p class ="prose"> {{ tripdetail.description }}</p>
                                     </td>
                                 {% endif %}
 
