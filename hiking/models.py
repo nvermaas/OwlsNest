@@ -12,6 +12,7 @@ class Hike(models.Model):
     duration = models.CharField(max_length=20)
     hike_image_url = models.URLField(max_length=250, default='',blank=True)
     visible = models.IntegerField(default=1)
+    description = models.TextField(max_length=3000, blank=True)
 
     def get_absolute_url(self):
         return reverse('hiking:details', kwargs={'pk': self.pk})

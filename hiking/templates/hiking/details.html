@@ -7,27 +7,31 @@
 
     <div class="row">
 
-        <!-- Left Hike Info -->
-        <div class="col-sm-3 col-md-3 col-lg-3">
+        <!-- Top Hike Info -->
+        <div class="col-sm-1 col-md-1"></div>
+        <div class="col-sm-10 col-md-10 col-lg-10">
             <div class="panel panel-default">
                 <div class="panel-heading">{{ hike.title }} {{ hike.year }}</div>
                 <div class="panel-body">
 
-                    <h4>{{ hike.place }}</h4>
+                    <div class="col-sm-4 col-md-4 col-lg-4">
 
+                    <p class="title">{{ hike.place }}</p>
                     <a href="{{ hike.hike_image_url }}">
                         {% if hike.hike_image_url %}
-                            <img src="{{  hike.hike_image_url }}" class="img-responsive">
+                            <img src="{{  hike.hike_image_url }}" style="width:100%" class="img-thumbnail">
                         {% else %}
                             <h3>No image to display</h3>
                         {% endif %}
                     </a>
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
 
                     <ul>
-                        <li><h4>{{ hike.country }}</h4></li>
-                        <li><h4>{{ hike.date }}</h4></li>
-                        <li><h4>{{ hike.duration }}</h4></li>
+                        <li><p class="prose"> {{ hike.date }} - {{ hike.duration }}</p></li>
+                        <p class="prose">{{ hike.description }}</p>
                     </ul>
+                    </div>
                     <br>
 
                     {% if user.is_authenticated %}
@@ -65,37 +69,40 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-1 col-md-1"></div>
+    </div>
 
-        <!-- Right Detail Info -->
-        <div class="col-sm-9 col-md-9">
+    <div class="row">
+
+        <!-- Bottom Detail Info -->
+        <div class="col-sm-1 col-md-1"></div>
+        <div class="col-sm-10 col-md-10">
 
 
             <div class="panel panel-default">
-            <div class="panel-heading">{{ hike.place }} </div>
-                <div class="col-sm-12">
 
 
-                </div>
 
                 <div class="panel-body">
                     {% if error_message %}
                         <p><strong>{{ error_message }}</strong></p>
                     {% endif %}
 
-                    <table class="table">
+                    <table class="table" >
 
                         <tbody>
                          {% for tripdetail in hike.tripdetail_set.all %}
 
                             <tr>
                                 {% if tripdetail.kind == 'image' %}
+
                                     <td class = "active">
                                          <h4> {{ tripdetail.title }}</h4>
-
+                                         <p class ="prose"> {{ tripdetail.description }} </p>
                                          <a href="{{ tripdetail.details_url }}" target="_blank">
-                                             <img src="{{ tripdetail.details_url }}" class="img-responsive">
+                                             <img src="{{ tripdetail.details_url }}" style="width:100%" class="img-responsive">
                                          </a>
-                                        <p class ="prose"> {{ tripdetail.description }} </p>
+
                                      </td>
                                 {% endif %}
 
@@ -161,7 +168,7 @@
             </div>
 
         </div>
-
+         <div class="col-sm-1 col-md-1"></div>
     </div>
 
 </div>
