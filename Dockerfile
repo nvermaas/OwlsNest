@@ -7,5 +7,4 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 COPY . /code/
-CMD ["python", "manage.py", "runserver", "--settings=OwlsNest.settings-docker", "0.0.0.0:8005"]
 CMD exec gunicorn OwlsNest.wsgi_docker:application --bind 0.0.0.0:8005 --workers 3
