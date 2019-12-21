@@ -4,3 +4,4 @@ djangorestframework==3.8.2
 Markdown==2.6.11
 django-cors-headers==2.4.0
 gunicorn==19.9.0
+whitenoise==5.0.1
