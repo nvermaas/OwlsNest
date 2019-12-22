@@ -1,6 +1,6 @@
 Django==2.2
 django-filter==2.0.0
-djangorestframework==3.8.2
+djangorestframework==3.9.1
 Markdown==2.6.11
 django-cors-headers==2.4.0
 gunicorn==19.9.0
