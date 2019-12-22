@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^hiking/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^hiking/admin/', admin.site.urls),
     url(r'^hiking/', include('hiking.urls')),
 ]
