@@ -1,11 +1,11 @@
-name: build-deploy-astrobase
+name: build-deploy-hiking
 on:
   push:
     branches:
       - master
       - update_march_2021
 jobs:
-  build-deploy-astrobase:
+  build-deploy-hiking:
     runs-on: ubuntu-latest
     steps:
       - name: execute build & deploy procedure on mintbox
