@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-      - update_march_2021
+
 jobs:
   build-deploy-hiking:
     runs-on: ubuntu-latest
