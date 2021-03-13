@@ -14,7 +14,7 @@ CMD exec gunicorn OwlsNest.wsgi_docker:application --bind 0.0.0.0:8005 --workers
 # docker build -t my_hiking:latest .
 
 # run the container from 'shared', like this:
-# docker run -d --name my_hiking --mount type=bind,source=$HOME/shared,target=/shared -p 8005:8005 --restart always my_hiking:latest
+# docker run -d --name my_hiking --mount type=bind,source=$HOME/shared,target=/shared -p 8006:8005 --restart always my_hiking:latest
 
 # log into the container
 # docker exec -it my_hiking bash
