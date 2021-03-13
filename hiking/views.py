@@ -1,15 +1,7 @@
 
-
 from django.shortcuts import render, redirect
-
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.reverse import reverse
 from rest_framework import generics
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 from django.views import generic
 
 from .models import Hike, TripDetail
@@ -30,12 +22,14 @@ class HikeListAPI(generics.ListCreateAPIView):
     queryset = Hike.objects.order_by('-year','-id')
     serializer_class = HikeSerializer
 
+
 class HikeDetailsAPI(generics.RetrieveUpdateDestroyAPIView):
     """
     List all TripDetails, or create a new TripDetail
     """
     queryset = Hike.objects.all()
     serializer_class = HikeSerializer
+
 
 class TripDetailsListAPI(generics.ListCreateAPIView):
     """
@@ -61,6 +55,14 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         hike_list = Hike.objects.all().order_by('-year','-id')
 
+        # check if there is a 'task_filter' put on the session
+        try:
+            filter = self.request.session['hike_filter']
+            if filter!='all':
+                hike_list = get_searched_hikes(filter)
+        except:
+            pass
+
         search_box = self.request.GET.get('search_box', None)
         if (search_box is not None):
             hike_list = get_searched_hikes(search_box)
@@ -82,10 +84,10 @@ class IndexView(generic.ListView):
 
 def get_searched_hikes(q):
     hikes = Hike.objects.filter(
-        Q(title__contains=q) |
-        Q(place__contains=q) |
-        Q(year__contains=q) |
-        Q(country__contains=q)).order_by('-year')
+        Q(title__icontains=q) |
+        Q(place__icontains=q) |
+        Q(year__icontains=q) |
+        Q(country__icontains=q)).order_by('-year')
     return hikes
 
 
@@ -95,5 +97,8 @@ class DetailsView(generic.DetailView):
     template_name = 'hiking/details.html'
     serializer_class = TripDetailSerializer
 
-
+# set a filter value in the session, used later by the 'get_searched_tasks' mechanism
+def HikeSetFilter(request,filter):
+    request.session['hike_filter'] = filter
+    return redirect('hiking:index')
 

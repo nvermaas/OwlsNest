@@ -16,12 +16,13 @@ urlpatterns = [
 
     #------------------------------------------------------------------------------------------
 
-    # === LGUI ===
+    # === GUI ===
     # /my_hiking/
     path('', views.IndexView.as_view(), name='index'),
 
     # /my_hiking/<hike_id>/
     path('hike/<int:pk>/', views.DetailsView.as_view(), name='details'),
 
+    path('hike/set_filter/<filter>', views.HikeSetFilter, name='hike-set-filter'),
 ]
 
