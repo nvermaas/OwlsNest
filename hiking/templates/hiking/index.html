@@ -1,9 +1,6 @@
 {% extends 'hiking/base.html' %}
 
-
-
 {% block myBlock %}
-
 
 <div class="hiking-container container-fluid">
 
@@ -34,30 +31,11 @@
                     {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
                 {% endfor %}
 
-            {% else %}
-                <div class="col-sm-12">
-                     <br>
-                      <a href="{% url 'hiking:hike-add' %}">
-                        <button type="button" class="btn btn-success">
-                            <span class="glyphicon glyphicon-plus"></span>&nbsp; Add a Hike
-                       </button>
-                     </a>
-               </div>
-            {% endif %}
+             {% endif %}
         </div>
 
-
-    {% if user.is_authenticated %}
-    <div class="thumbnail">
-        <h4>REST API</h4>
-        <li class=""><a href="{% url 'hiking:hike-list-rest' %}">hiking list</a></li>
-        <li class=""><a href="{% url 'hiking:hike-details-rest' pk=62 %}">hike details example</a></li>
-        <li class=""><a href="{% url 'hiking:tripdetails-list-view-all' %}">tripdetails list</a></li>
-        <li class=""><a href="{% url 'hiking:tripdetails-detail-view' pk=100 %}">tripdetails example</a></li>
-    </div>
-    {% endif %}
     {% include 'hiking/hike_pagination.html' %}
 </div>
-<p class="footer"> Version 2.0 (13 mar 2021 - 09:00)</p>
+<p class="footer"> Version 2.0 (13 mar 2021 - 12:00)</p>
 
 {% endblock %}

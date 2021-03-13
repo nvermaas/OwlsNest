@@ -1,7 +1,7 @@
-Django==2.2.6
-django-filter==2.0.0
-djangorestframework==3.9.1
+Django==3.1.4
+djangorestframework==3.12.2
+django-filter==2.3.0
 Markdown==2.6.11
-django-cors-headers==2.4.0
+django-cors-headers==3.6.0
 gunicorn==19.9.0
 whitenoise==5.0.1
