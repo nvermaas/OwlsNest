@@ -1,5 +1,9 @@
 name: build-deploy-astrobase
-on: [push]
+on:
+  push:
+    branches:
+      - master
+      - update_march_2021
 jobs:
   build-deploy-astrobase:
     runs-on: ubuntu-latest
