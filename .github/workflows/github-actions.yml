@@ -1,0 +1,20 @@
+name: build-deploy-astrobase
+on: [push]
+jobs:
+  build-deploy-astrobase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: execute build & deploy procedure on mintbox
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.MY_HOST }}
+          username: ${{ secrets.MY_USERNAME }}
+          #password: ${{ secrets.MY_PASSWORD }}
+          key: ${{ secrets.MY_PRIVATE_KEY }}
+          script: |
+             cd ~/my_docker/OwlsNest
+             git pull
+             cd OwlsNest
+             docker build -t my_hiking:latest .
+             cd $HOME/shared
+             docker-compose -p dockernest up -d
