@@ -65,6 +65,7 @@ class IndexView(generic.ListView):
         if (search_box is not None):
             hike_list = get_searched_hikes(search_box)
 
+        hike_list = hike_list.filter(visible=1)
         paginator = Paginator(hike_list, config.HIKES_PER_PAGE)  # Show x hikes per page
         page = self.request.GET.get('page')
 
