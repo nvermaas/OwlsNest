@@ -93,7 +93,21 @@
                                     </td>
                                 {% endif %}
 
+                                {% if tripdetail.kind == 'map' %}
+                                    <td class = "warning">
+                                        <a href="{{ tripdetail.details_url }}" target="_blank"><h4><i class="fas fa-map"></i> {{ tripdetail.title }}</h4></a>
+                                        <p class ="prose"> {{ tripdetail.description }}</p>
+                                    </td>
+                                {% endif %}
+
+                                {% if tripdetail.kind == 'report' %}
+                                    <td class = "warning">
+                                        <a href="{{ tripdetail.details_url }}" target="_blank"><h4><i class="fas fa-file-alt"></i> {{ tripdetail.title }}</h4></a>
+                                        <p class ="prose"> {{ tripdetail.description }}</p>
+                                    </td>
+                                {% endif %}
                            </tr>
+
 
                         {% endfor %}
                         </tbody>
