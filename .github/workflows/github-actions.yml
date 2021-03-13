@@ -13,12 +13,11 @@ jobs:
         with:
           host: ${{ secrets.MY_HOST }}
           username: ${{ secrets.MY_USERNAME }}
-          password: ${{ secrets.MY_PASSWORD }}
-          #key: ${{ secrets.MY_PRIVATE_KEY }}
+          #password: ${{ secrets.MY_PASSWORD }}
+          key: ${{ secrets.MY_PRIVATE_KEY }}
           script: |
              cd ~/my_docker/OwlsNest
              git pull
-             cd OwlsNest
              docker build -t my_hiking:latest .
              cd $HOME/shared
              docker-compose -p dockernest up -d
