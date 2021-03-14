@@ -65,6 +65,8 @@ class TripDetail(models.Model):
     KIND_OTHER = 'other'
     KIND_GALLERY = 'gallery'
     KIND_MAP = 'map'
+    KIND_REPORT = 'report'
+    KIND_GPS = 'gps'
 
     KIND_CHOICES = (
         (KIND_IMAGE, 'Image'),
@@ -73,6 +75,8 @@ class TripDetail(models.Model):
         (KIND_GALLERY, 'Gallery'),
         (KIND_OTHER, 'Other'),
         (KIND_MAP, 'Map'),
+        (KIND_REPORT, 'Report'),
+        (KIND_GPS, 'GPS'),
     )
 
     # use the Meta class to order the TripDetails (inside the Hike)
