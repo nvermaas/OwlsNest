@@ -53,7 +53,7 @@ class IndexView(generic.ListView):
     context_object_name = 'my_hikes_all'
 
     def get_queryset(self):
-        hike_list = Hike.objects.all().order_by('-year','-id')
+        hike_list = Hike.objects.all().order_by('-date')
 
         # check if there is a 'task_filter' put on the session
         try:
@@ -87,7 +87,7 @@ def get_searched_hikes(q):
         Q(title__icontains=q) |
         Q(place__icontains=q) |
         Q(year__icontains=q) |
-        Q(country__icontains=q)).order_by('-year')
+        Q(country__icontains=q)).order_by('-date')
     return hikes
 
 
