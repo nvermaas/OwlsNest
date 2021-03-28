@@ -20,12 +20,12 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    url(r'^my_hiking/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^my_hiking/admin/', admin.site.urls),
-    url(r'^my_hiking/', include('hiking.urls')),
     url(r'^hiking_nico/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^hiking_nico/admin/', admin.site.urls),
     url(r'^hiking_nico/', include('hiking.urls')),
+    url(r'^my_hiking/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^my_hiking/admin/', admin.site.urls),
+    url(r'^my_hiking/', include('hiking.urls')),
 ]
 
 # in debug mode the url where media is stored points at a local directory in the project
