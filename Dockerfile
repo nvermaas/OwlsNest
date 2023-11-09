@@ -1,5 +1,7 @@
 FROM python:3.10-slim
-RUN apt-get update && apt-get install --no-install-recommends -y bash nano mc libmagic1 git
+
+ENV PYTHONUNBUFFERED 1
+#RUN apt-get update && apt-get install --no-install-recommends -y bash nano mc
 
 RUN mkdir /src
 WORKDIR /src
