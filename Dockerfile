@@ -1,7 +1,7 @@
-FROM python:3.10-slim
+FROM python:3.10-slim-bullseye
 
 ENV PYTHONUNBUFFERED 1
-RUN apt-get update
+RUN apt-get update && apt-get install --no-install-recommends -y bash nano mc
 RUN mkdir /src
 WORKDIR /src
 COPY . /src/
