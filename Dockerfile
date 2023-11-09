@@ -1,4 +1,4 @@
-FROM python:3.6.7-slim
+FROM python:3.10-slim
 
 ENV PYTHONUNBUFFERED 1
 RUN apt-get update && apt-get install --no-install-recommends -y bash nano mc
