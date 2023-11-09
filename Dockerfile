@@ -1,8 +1,7 @@
-FROM python:3.10-slim
+FROM python:3.8-slim
 
 ENV PYTHONUNBUFFERED 1
-#RUN apt-get update && apt-get install --no-install-recommends -y bash nano mc
-
+RUN apt-get update && apt-get install --no-install-recommends -y bash nano mc
 RUN mkdir /src
 WORKDIR /src
 COPY . /src/
