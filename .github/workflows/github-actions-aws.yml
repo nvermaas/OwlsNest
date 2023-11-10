@@ -8,7 +8,7 @@ jobs:
   build-deploy-hiking:
     runs-on: ubuntu-latest
     steps:
-      - name: execute build & deploy procedure on mintbox
+      - name: execute build & deploy procedure on AWS
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.MY_AWS_HOST }}
