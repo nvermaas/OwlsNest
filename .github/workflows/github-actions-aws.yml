@@ -2,7 +2,7 @@ name: build-deploy-hiking
 on:
   push:
     branches:
-      - master
+      - aws
 
 jobs:
   build-deploy-hiking:
