@@ -17,10 +17,10 @@ urlpatterns = [
     #------------------------------------------------------------------------------------------
 
     # === GUI ===
-    # /my_hiking/
+    # /hiking_nico/
     path('', views.IndexView.as_view(), name='index'),
 
-    # /my_hiking/<hike_id>/
+    # /hiking_nico/<hike_id>/
     path('hike/<int:pk>/', views.DetailsView.as_view(), name='details'),
 
     path('hike/set_filter/<filter>', views.HikeSetFilter, name='hike-set-filter'),
