@@ -8,7 +8,7 @@ COPY . /src/
 
 RUN pip install -r requirements.txt
 RUN exec python manage.py collectstatic --settings=OwlsNest.settings-docker --noinput
-CMD exec gunicorn OwlsNest.wsgi_docker:application --bind 0.0.0.0:8005 --workers 3
+CMD exec gunicorn OwlsNest.wsgi_docker:application --bind 0.0.0.0:8000 --workers 3
 
 # build the image like this:
 # docker build -t my_hiking:latest .
