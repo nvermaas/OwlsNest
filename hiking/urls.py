@@ -12,7 +12,7 @@ urlpatterns = [
     path('hike-details-api//<int:pk>/', views.HikeDetailsAPI.as_view(), name='hike-details-api'),
 
     path('tripdetails-list-api/', views.TripDetailsListAPI.as_view(), name='tripdetails-list-api'),
-    path('tripdetails-details-api//<int:pk>/', views.TripDetailsDetailsAPI.as_view(), name='tripdetails-details-api'),
+    path('tripdetails-details-api/<int:pk>/', views.TripDetailsDetailsAPI.as_view(), name='tripdetails-details-api'),
 
     #------------------------------------------------------------------------------------------
 

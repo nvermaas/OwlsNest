@@ -1,4 +1,4 @@
-from django.contrib import admin
+
 from django.urls import path,include
 from django.contrib import admin
 from django.conf import settings
@@ -9,9 +9,6 @@ urlpatterns = [
     path('hiking_nico/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('hiking_nico/admin/', admin.site.urls),
     path('hiking_nico/', include('hiking.urls')),
-    #path('my_hiking/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    #path('my_hiking/admin/', admin.site.urls),
-    #path('my_hiking/', include('hiking.urls')),
 ]
 
 # in debug mode the url where media is stored points at a local directory in the project

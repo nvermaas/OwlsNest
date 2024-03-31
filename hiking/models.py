@@ -97,5 +97,5 @@ class TripDetail(models.Model):
         return reverse('hiking:details', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return self.title + ' - ' + self.description
+        return self.title + ' - ' + str(self.hike)
 
