@@ -18,6 +18,6 @@ jobs:
           script: |
              cd ~/my_docker/OwlsNest
              git pull
-             docker build -t my_hiking:latest .
+             sudo docker build -t my_hiking:latest .
              cd $HOME/shared
-             docker-compose -p dockernest up -d
+             sudo docker-compose -p dockernest up -d
