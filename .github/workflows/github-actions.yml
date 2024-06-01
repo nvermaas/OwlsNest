@@ -18,6 +18,6 @@ jobs:
           script: |
              cd ~/my_docker/OwlsNest
              git pull
-             sudo -S ${{ secrets.MY_PASSWORD }} docker build -t my_hiking:latest .
+             docker build -t my_hiking:latest .
              cd $HOME/shared
-             sudo -S ${{ secrets.MY_PASSWORD }} docker-compose -p dockernest up -d
+             docker-compose -p dockernest up -d
