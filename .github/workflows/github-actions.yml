@@ -1,6 +1,6 @@
 name: build-deploy-hiking
 on:
-  push:
+  [push,workflow_dispatch]:
     branches:
       - master
 
