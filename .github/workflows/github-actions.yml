@@ -20,4 +20,6 @@ jobs:
              git pull
              docker build -t my_hiking:latest .
              cd $HOME/shared
+             docker stop my_hiking
+             docker rm my_hiking
              docker-compose -p dockernest up -d
