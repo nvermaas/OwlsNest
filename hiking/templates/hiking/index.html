@@ -7,13 +7,13 @@
 
     <!-- Hikes -->
     {% include 'hiking/hike_pagination.html' %}
-    <div class="row">
+    <div class="ui three column grid">
 
         {% if my_hikes_all %}
 
             {% for hike in my_hikes_all %}
 
-                <div class="col-sm-6 col-lg-4">
+                <div class="column">
                     <div class="thumbnail">
                         <a href="{% url 'hiking:details' hike.pk %}">
                             <!-- <img src="{{ hike.url }}" class="img-responsive"> -->
