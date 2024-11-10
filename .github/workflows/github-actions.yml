@@ -16,12 +16,12 @@ jobs:
           password: ${{ secrets.MY_PASSWORD }}
           #key: ${{ secrets.MY_PRIVATE_KEY }}
           script: |
-             export DOCKER_CONFIG="/var/lib/docker"
+             ##export DOCKER_CONFIG="/var/lib/docker"
              cd ~/my_docker/OwlsNest
              git pull
              docker build -t my_hiking:latest .
-             docker build -t my_hiking:local .
-             ##cd $HOME/shared
-             ##docker stop my_hiking
-             ##docker rm my_hiking
-             ##docker-compose -p dockernest up -d
+             ##docker build -t my_hiking:local .
+             cd $HOME/shared
+             docker stop my_hiking
+             docker rm my_hiking
+             docker-compose -p dockernest up -d
