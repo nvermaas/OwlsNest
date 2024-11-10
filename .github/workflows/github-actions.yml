@@ -19,8 +19,14 @@ jobs:
              ##export DOCKER_CONFIG="/var/lib/docker"
              cd ~/my_docker/OwlsNest
              git pull
+             # build for regular rootless deploy 
              docker build -t my_hiking:latest .
-             ##docker build -t my_hiking:local .
+            
+             # build for nomad, which uses rootful docker, so needs a pull from a repo
+             docker build -t my_hiking:local .
+             docker tag my_hiking:local localhost:5000/my_hiking:local
+             docker push localhost:5000/my_hiking:local
+            
              cd $HOME/shared
              docker stop my_hiking
              docker rm my_hiking
