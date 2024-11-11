@@ -16,7 +16,7 @@ jobs:
           password: ${{ secrets.MY_PASSWORD }}
           #key: ${{ secrets.MY_PRIVATE_KEY }}
           script: |
-             ##export DOCKER_CONFIG="/var/lib/docker"
+
              cd ~/my_docker/OwlsNest
              git pull
              # build for regular rootless deploy 
@@ -33,5 +33,5 @@ jobs:
              docker-compose -p dockernest up -d
     
              # deploy with nomad
-            cd $HOME/my_nomad_datacenter/jobs
-            nomad run my_hiking.nomad
+             cd $HOME/my_nomad_datacenter/jobs
+             nomad run my_hiking.nomad
