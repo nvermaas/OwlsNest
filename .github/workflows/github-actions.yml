@@ -23,8 +23,8 @@ jobs:
              docker build -t my_hiking:latest .
             
              # tag for nomad, which uses rootful docker, so needs a pull from a repo
-             docker tag my_hiking:latest localhost:5000/my_hiking:local
-             docker push localhost:5000/my_hiking:local
+             docker tag my_hiking:latest localhost:5000/my_hiking:latest
+             docker push localhost:5000/my_hiking:latest
             
              # deploy with docker-compose
              cd $HOME/shared
