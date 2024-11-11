@@ -22,11 +22,16 @@ jobs:
              # build for regular rootless deploy 
              docker build -t my_hiking:latest .
             
-             # build for nomad, which uses rootful docker, so needs a pull from a repo
+             # tag for nomad, which uses rootful docker, so needs a pull from a repo
              docker tag my_hiking:latest localhost:5000/my_hiking:local
              docker push localhost:5000/my_hiking:local
             
+             # deploy with docker-compose
              cd $HOME/shared
              docker stop my_hiking
              docker rm my_hiking
              docker-compose -p dockernest up -d
+    
+             # deploy with nomad
+            cd $HOME/my_nomad_datacenter/jobs
+            nomad run my_hiking.nomad
