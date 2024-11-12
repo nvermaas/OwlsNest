@@ -34,4 +34,4 @@ jobs:
     
              # deploy with nomad
              cd $HOME/my_nomad_datacenter/jobs
-             nomad run my_hiking.nomad
+             nomad run -force my_hiking.nomad
