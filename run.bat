@@ -1,1 +1,1 @@
-python manage.py runserver --settings=OwlsNest.settings-development
+python manage.py runserver --settings=OwlsNest.settings.dev
