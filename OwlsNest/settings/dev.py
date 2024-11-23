@@ -24,6 +24,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'hiking.sqlite3'),
     }
 }
+print(DATABASES)
 
 
 # Static files (CSS, JavaScript, Images)
@@ -35,4 +36,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
+#FORCE_SCRIPT_NAME = 'hiking_nico2'
