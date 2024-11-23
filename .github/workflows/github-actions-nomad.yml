@@ -1,11 +1,7 @@
 name: Manual Deployment
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Target environment'
-        required: true
-        default: 'development'
+
 jobs:
   build-deploy-hiking-nomad:
     runs-on: ubuntu-latest

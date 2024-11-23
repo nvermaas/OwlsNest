@@ -5,7 +5,7 @@ on:
       - aws
 
 jobs:
-  build-deploy-hiking:
+  build-deploy-hiking-aws:
     runs-on: ubuntu-latest
     steps:
       - name: execute build & deploy procedure on AWS
