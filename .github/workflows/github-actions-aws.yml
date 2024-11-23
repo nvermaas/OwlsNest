@@ -1,4 +1,4 @@
-name: build-deploy-hiking-aws
+name: build-deploy-hiking-aws (auto on aws branch)
 on:
   push:
     branches:

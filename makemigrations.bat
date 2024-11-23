@@ -1,1 +1,1 @@
-python manage.py makemigrations --settings=OwlsNest.settings-development
+python manage.py makemigrations --settings=OwlsNest.settings.dev
