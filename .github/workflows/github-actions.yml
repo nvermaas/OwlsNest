@@ -1,4 +1,4 @@
-name: build-deploy-hiking (auto on master)
+name: build-deploy (auto on master)
 on:
   push:
     branches:
