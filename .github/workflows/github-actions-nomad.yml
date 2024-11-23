@@ -1,4 +1,4 @@
-name: Manual Deployment
+name: build-deploy-hiking-nomad (manual)
 on:
   workflow_dispatch:
 
