@@ -117,8 +117,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static_hiking/'                     # this works on middle-earth
-#STATIC_URL = FORCE_SCRIPT_NAME + 'Owlsnest/static/' # this works in dev and on nomad
+#STATIC_URL = '/static_hiking/'                     # this works on middle-earth
+STATIC_URL = FORCE_SCRIPT_NAME + 'OwlsNest/static/' # this works in dev and on nomad
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
