@@ -9,7 +9,7 @@ class Hike(models.Model):
     place = models.CharField(max_length=40)
     country = models.CharField(max_length=20)
     date = models.CharField(max_length=20)
-    year = models.IntegerField(default=2000)
+    year = models.IntegerField(default=2025)
     duration = models.CharField(max_length=20)
     hike_image_url = models.URLField(max_length=250, default='',blank=True)
     visible = models.IntegerField(default=1)
