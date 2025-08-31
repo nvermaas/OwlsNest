@@ -1,6 +1,8 @@
 name: build-deploy (auto on master)
 on:
   push:
+    branches:
+      - master
 
 jobs:
   build-deploy-hiking:
