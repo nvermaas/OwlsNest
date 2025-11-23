@@ -1,0 +1,1 @@
+python manage.py migrate hiking 0002 --settings=OwlsNest.settings.dev

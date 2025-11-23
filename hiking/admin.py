@@ -8,8 +8,9 @@ class TripReportInline(admin.TabularInline):
 
 class HikeAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Overview',  {'fields': ['title','description','place','country','visible']}),
-        ('Date Information', {'fields': ['date', 'duration']}),
+        ('Overview',  {'fields': ['title','description','place','country','with_who','weather','visible']}),
+        ('Date Information', {'fields': ['date', 'duration', 'kilometers']}),
+        ('Details', {'fields': ['days', 'wild_rough_nights','wild_campsite_nights','campground_nights','indoor_nights']}),
         ('Image',{'fields': ['hike_image_url']})
     ]
     inlines = [TripReportInline]

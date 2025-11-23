@@ -13,8 +13,6 @@ from . import config
 
 # --- REST API ---
 
-# --- REST API ---
-
 class HikeListAPI(generics.ListCreateAPIView):
     """
     List all Hikes, or create a new Hike.

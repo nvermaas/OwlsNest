@@ -15,6 +15,15 @@ class Hike(models.Model):
     visible = models.IntegerField(default=1)
     description = models.TextField(max_length=3000, blank=True)
 
+    # with_who = models.CharField(max_length=20,blank=True,null=True,default="Ingeborg")
+    # days = models.IntegerField(null=True, blank=True)
+    # wild_rough_nights = models.IntegerField(default=0)
+    # wild_campsite_nights = models.IntegerField(default=0)
+    # campground_nights = models.IntegerField(default=0)
+    # indoor_nights = models.IntegerField(default=0)
+    # kilometers = models.IntegerField(null=True, blank=True)
+    # weather = models.CharField(max_length=100,blank=True,null=True)
+
     def get_absolute_url(self):
         return reverse('hiking:details', kwargs={'pk': self.pk})
 
