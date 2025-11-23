@@ -1,4 +1,4 @@
-
+from datetime import datetime
 from django.shortcuts import render, redirect
 from rest_framework import generics
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -94,6 +94,37 @@ class DetailsView(generic.DetailView):
     # by default this would be 'hike_detail.html', but 'template_name' overrides the default name.
     template_name = 'hiking/details.html'
     serializer_class = TripDetailSerializer
+
+    def get_context_data(self, **kwargs):
+        # Get the default context from DetailView
+        context = super().get_context_data(**kwargs)
+
+        hike = self.object
+
+        # Add extra context
+
+        # convert the hike.date to something human readable
+        year, month_str = hike.date.split("_")
+        # If month_str has more than 1 digit, ignore the last digit
+        if len(month_str) > 2:
+            month_str = month_str[:-1]
+        month = int(month_str)
+        dt = datetime(int(year), month, 1)
+        formatted = dt.strftime("%B %Y")
+
+        days = ""
+        if hike.days:
+            days = f"{hike.days} days"
+
+        with_who = ""
+        if hike.with_who:
+            with_who = f"with {hike.with_who}"
+
+        context['subtitle'] = f'{formatted}, {days} {with_who}'
+
+        context['overnights'] = hike.days
+
+        return context
 
 # set a filter value in the session, used later by the 'get_searched_tasks' mechanism
 def HikeSetFilter(request,filter):

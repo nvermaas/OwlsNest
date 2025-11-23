@@ -15,13 +15,12 @@ class HikeSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Hike
-        fields = ('id','title','place','country','date','year','duration','hike_image_url','visible',
-                  'link_to_gallery','link_to_movie','link_to_map')
+        fields = "__all__"
 
 
 class TripDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = TripDetail
-        fields = ('id','hike_id','title', 'description', 'kind', 'details_url','order','visible')
+        fields = "__all__"
 
