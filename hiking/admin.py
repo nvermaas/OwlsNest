@@ -15,7 +15,7 @@ class HikeAdmin(admin.ModelAdmin):
     ]
     inlines = [TripReportInline]
     # this changes the layout of the dropdown list for hikes (default it shows the whole record as a str)
-    list_display = ('title','place','country', 'date', 'duration','get_year')
+    list_display = ('title','place','country', 'date', 'days','kilometers')
     list_filter = ['country']
 
 # Register your models here.

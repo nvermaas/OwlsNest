@@ -102,7 +102,6 @@ class DetailsView(generic.DetailView):
         hike = self.object
 
         # Add extra context
-
         # convert the hike.date to something human readable
         year, month_str = hike.date.split("_")
         # If month_str has more than 1 digit, ignore the last digit
@@ -112,17 +111,14 @@ class DetailsView(generic.DetailView):
         dt = datetime(int(year), month, 1)
         formatted = dt.strftime("%B %Y")
 
-        days = ""
-        if hike.days:
-            days = f"{hike.days} days"
+        days = f", {hike.days} days" if hike.days else ""
+        with_who = f", with {hike.with_who}" if hike.with_who else ""
+        kilometers = f", {hike.kilometers} km" if hike.kilometers else ""
 
-        with_who = ""
-        if hike.with_who:
-            with_who = f"with {hike.with_who}"
-
-        context['subtitle'] = f'{formatted}, {days} {with_who}'
+        context['subtitle'] = f'{formatted}{days}{kilometers}{with_who}'
 
         context['overnights'] = hike.days
+        wild_rough_nights = f", {hike.wild_rough_nights} wild camps" if hike.wild_rough_nights else ""
 
         return context
 
