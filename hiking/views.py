@@ -111,11 +111,11 @@ class DetailsView(generic.DetailView):
         dt = datetime(int(year), month, 1)
         formatted = dt.strftime("%B %Y")
 
-        days = f", {hike.days} days" if hike.days else ""
+        #days = f", {hike.days} days" if hike.days else ""
         with_who = f", with {hike.with_who}" if hike.with_who else ""
-        kilometers = f", {hike.kilometers} km" if hike.kilometers else ""
+        #kilometers = f", {hike.kilometers} km" if hike.kilometers else ""
 
-        context['subtitle'] = f'{formatted}{days}{kilometers}{with_who}'
+        context['subtitle'] = f'{formatted}{with_who}'
 
         return context
 
