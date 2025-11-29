@@ -1,5 +1,5 @@
 {% extends 'hiking/base.html' %}
-
+{% load hiking_tags %}
 {% block myBlock %}
 
 <div class="hiking-container container-fluid">
@@ -22,7 +22,7 @@
                         </a>
                         <div class="caption">
                             <h4>{{ hike.title }} {{ hike.year }} - <small>{{ hike.place }}</small></h4>
-
+                            <h5>{% overnights hike %}</h5>
                             <!-- View Details -->
 
 
@@ -56,6 +56,7 @@
                                        <a href="{{ hike.link_to_gps }}" class="btn btn-success btn-sm" role="button" target="_blank"><i class="fas fa-map-marked-alt"></i> GPS</a>&nbsp;
                                     {% endif %}
                                 </td>
+
                         </div>
                     </div>
                 </div>

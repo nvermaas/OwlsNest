@@ -117,9 +117,12 @@ class DetailsView(generic.DetailView):
 
         context['subtitle'] = f'{formatted}{days}{kilometers}{with_who}'
 
-        context['overnights'] = hike.days
-        wild_rough_nights = f", {hike.wild_rough_nights} wild camps" if hike.wild_rough_nights else ""
 
+        wild_rough_nights = f", {hike.wild_rough_nights} wild camps" if hike.wild_rough_nights else ""
+        wild_rough_nights_html = f"<i class='fas fa-campground'></i>{hike.wild_rough_nights}"
+        wild_campsite_nights = f"<i class='fas fa-campground'></i>{hike.wild_campsite_nights}"
+        wild_rough_nights_html = f"<i class='fas fa-campground'></i>{hike.wild_rough_nights}"
+        context['overnights'] = wild_rough_nights_html
         return context
 
 # set a filter value in the session, used later by the 'get_searched_tasks' mechanism

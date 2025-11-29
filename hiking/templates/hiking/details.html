@@ -1,5 +1,9 @@
 {% extends 'hiking/base.html' %}
-{% block myBlockTitle %}{{ hike.title }} - {{ hike.year }}{% endblock %}
+{% load hiking_tags %}
+
+{% block myBlockTitle %}
+    {{ hike.title }} - {{ hike.year }}
+{% endblock %}
 
 {% block myBlock %}
 
@@ -29,6 +33,7 @@
 
                     <ul>
                         <li><p class="prose"> {{ subtitle}}</p></li>
+                        <li>{% overnights hike %}</li>
                         <p class="prose">{{ hike.description }}</p>
                     </ul>
                     </div>

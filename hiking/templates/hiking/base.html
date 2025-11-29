@@ -1,20 +1,23 @@
 <!DOCTYPE html>
+<!-- loads the path to static files -->
+{% load static %}
+{% load hiking_tags %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block myBlockTitle %}Hiking Nico{% endblock %}</title>
-
-    <!-- loads the path to static files -->
-    {% load static %}
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Raleway' type='text/css'>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
-    <link href="{% static 'fontawesome_free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-
+    <!-- Font Awesome CDN -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      rel="stylesheet"
+    >
     <link rel="stylesheet" type="text/css" href="{% static 'hiking/mystyle.css' %}"/>
     <link rel="icon" href="{% static 'favicon.png' %}">
     {% block extra_js %}{% endblock %}
