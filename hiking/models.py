@@ -20,7 +20,6 @@ class Hike(models.Model):
     wild_rough_nights = models.IntegerField(default=0)
     wild_campsite_nights = models.IntegerField(default=0)
     campground_nights = models.IntegerField(default=0)
-    indoor_nights = models.IntegerField(default=0)
 
     # unpayed
     indoor_refuge = models.IntegerField(default=0)

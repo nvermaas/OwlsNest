@@ -1,22 +1,22 @@
 
 <div class="pagination">
 
-{% if my_hikes_all.has_other_pages %}
+{% if selected_hikes.has_other_pages %}
   <ul class="pagination">
-    {% if my_hikes_all.has_previous %}
-      <li><a href="?page={{ my_hikes_all.previous_page_number }}"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></a></li>
+    {% if selected_hikes.has_previous %}
+      <li><a href="?page={{ selected_hikes.previous_page_number }}"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></a></li>
     {% else %}
       <li class="disabled"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></li>
     {% endif %}
-    {% for i in my_hikes_all.paginator.page_range %}
-      {% if my_hikes_all.number == i %}
+    {% for i in selected_hikes.paginator.page_range %}
+      {% if selected_hikes.number == i %}
         <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
       {% else %}
         <li><a href="?page={{ i }}">{{ i }}</a></li>
       {% endif %}
     {% endfor %}
-    {% if my_hikes_all.has_next %}
-      <li><a href="?page={{ my_hikes_all.next_page_number }}"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a></li>
+    {% if selected_hikes.has_next %}
+      <li><a href="?page={{ selected_hikes.next_page_number }}"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a></li>
     {% else %}
       <li class="disabled"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></li>
     {% endif %}
