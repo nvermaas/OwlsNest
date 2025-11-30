@@ -21,6 +21,16 @@ class Hike(models.Model):
     wild_campsite_nights = models.IntegerField(default=0)
     campground_nights = models.IntegerField(default=0)
     indoor_nights = models.IntegerField(default=0)
+
+    # unpayed
+    indoor_refuge = models.IntegerField(default=0)
+
+    # payed unstaffed hut with facilities
+    indoor_unstaffed = models.IntegerField(default=0)
+
+    # payed staffed hut, B&B or hotel
+    indoor_staffed = models.IntegerField(default=0)
+
     kilometers = models.IntegerField(null=True, blank=True)
     weather = models.CharField(max_length=100,blank=True,null=True)
 

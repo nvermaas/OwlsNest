@@ -14,11 +14,17 @@ def overnights(hike):
         if hike.campground_nights else ""
     indoor_nights_html = f"<i class='fa-solid fa-house' style='color: green;'></i> {hike.indoor_nights} &nbsp; " \
         if hike.indoor_nights else ""
-
+    indoor_refuge_html = f"<i class='fa-solid fa-house' style='color: red;'></i> {hike.indoor_refuge} &nbsp; " \
+        if hike.indoor_refuge else ""
+    indoor_unstaffed_html = f"<i class='fa-solid fa-house' style='color: orange;'></i> {hike.indoor_unstaffed} &nbsp; " \
+        if hike.indoor_unstaffed else ""
+    indoor_staffed_html = f"<i class='fa-solid fa-house' style='color: green;'></i> {hike.indoor_staffed} &nbsp; " \
+        if hike.indoor_staffed else ""
 
     meta = f"<b>{hike.kilometers}</b> km in <b>{hike.days}</b> days. &nbsp; " if hike.kilometers else ""
 
-    overnights_html = meta + wild_rough_nights_html + wild_campsite_nights_html + campground_nights_html + indoor_nights_html
+    overnights_html = meta + wild_rough_nights_html + wild_campsite_nights_html + campground_nights_html + \
+                      indoor_refuge_html + indoor_unstaffed_html + indoor_staffed_html
     return mark_safe(overnights_html)
 
 @register.simple_tag
