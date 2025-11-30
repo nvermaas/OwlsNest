@@ -78,7 +78,16 @@ class IndexView(generic.ListView):
             # If page is out of range (e.g. 9999), deliver last page of results.
             hikes = paginator.page(paginator.num_pages)
 
+        # save full list so we can use it later
+        self.full_hike_list = hike_list
+
         return hikes
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add the full list to the context
+        context['hike_list'] = self.full_hike_list
+        return context
 
 def get_searched_hikes(q):
     hikes = Hike.objects.filter(

@@ -39,8 +39,8 @@ def overnights_selected_hikes(hikes):
     indoor_staffed = 0
 
     for hike in hikes:
-        days += hike.days if hike.days else days
-        kilometers += hike.kilometers if hike.kilometers else kilometers
+        days += hike.days if hike.days else 0
+        kilometers += hike.kilometers if hike.kilometers else 0
 
         wild_rough_nights += hike.wild_rough_nights
         wild_campsite_nights += hike.wild_campsite_nights
