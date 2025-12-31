@@ -33,6 +33,8 @@ class Hike(models.Model):
     kilometers = models.IntegerField(null=True, blank=True)
     weather = models.CharField(max_length=100,blank=True,null=True)
 
+    location = models.JSONField(null=True, blank=True)
+
     def get_absolute_url(self):
         return reverse('hiking:details', kwargs={'pk': self.pk})
 
