@@ -12,7 +12,7 @@ class HikeAdmin(admin.ModelAdmin):
         ('Date Information', {'fields': ['date', 'duration']}),
         ('Details', {'fields': ['kilometers', 'days', 'wild_rough_nights','wild_campsite_nights','campground_nights','indoor_refuge','indoor_unstaffed','indoor_staffed']}),
         ('Image',{'fields': ['hike_image_url']}),
-        ('Locatoin', {'fields': ['location']})
+        ('Location', {'fields': ['location']})
     ]
     inlines = [TripReportInline]
     # this changes the layout of the dropdown list for hikes (default it shows the whole record as a str)
