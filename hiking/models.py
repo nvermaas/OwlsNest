@@ -78,6 +78,16 @@ class Hike(models.Model):
             q = None
         return q
 
+    @property
+    def gpx(self):
+        url = None
+        try:
+            url = self.location['gpx']
+        except:
+            pass
+
+        return url
+
 class TripDetail(models.Model):
     KIND_IMAGE = 'image'
     KIND_MOVIE = 'movie'

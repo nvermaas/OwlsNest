@@ -24,5 +24,6 @@ urlpatterns = [
     path('hike/<int:pk>/', views.DetailsView.as_view(), name='details'),
 
     path('hike/set_filter/<filter>', views.HikeSetFilter, name='hike-set-filter'),
+    path("hike/<int:pk>/map/", views.hike_map, name="hike-map"),
 ]
 

@@ -1,5 +1,5 @@
 from datetime import datetime
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import generics
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import generic
@@ -126,6 +126,10 @@ class DetailsView(generic.DetailView):
 
         context['subtitle'] = f'{formatted}{with_who}'
 
+        location = hike.location
+        gpx = hike.gpx
+        context['gpx'] = gpx
+
         return context
 
 # set a filter value in the session, used later by the 'get_searched_tasks' mechanism
@@ -133,3 +137,6 @@ def HikeSetFilter(request,filter):
     request.session['hike_filter'] = filter
     return redirect('hiking:index')
 
+def hike_map(request, pk):
+    hike = get_object_or_404(Hike, pk=pk)
+    return render(request, "hiking/hike_map.html", {"hike": hike})

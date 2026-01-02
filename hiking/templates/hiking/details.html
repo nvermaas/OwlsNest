@@ -28,7 +28,14 @@
                             <h3>No image to display</h3>
                         {% endif %}
                     </a>
+
+                    {% if hike.gpx %}
+                        <a href="{% url 'hiking:hike-map' hike.pk %}" class="btn btn-primary btn-sm" role="button"><i class="fas fa-map-marker"></i> GPX</a>
+                    {% endif %}
+
                     </div>
+
+
                     <div class="col-sm-8 col-md-8 col-lg-8">
 
                     <ul>
