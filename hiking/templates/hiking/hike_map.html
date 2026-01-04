@@ -34,13 +34,6 @@
       height: auto !important;
     }
 
-    .leaflet-div-icon {
-      background: none !important;  /* remove default background */
-      border: none !important;      /* remove default border */
-      width: auto !important;
-      height: auto !important;
-    }
-
     .fa-marker i {
       font-size: 24px;
       text-shadow:
@@ -91,9 +84,9 @@
     .addTo(map);
 
     // Font Awesome DivIcon factory
-    function faIcon(iconClass, color) {
+    function faIcon(iconClass, color, size) {
       return L.divIcon({
-        html: `<i class="${iconClass}" style="color:${color};"></i>`,
+        html: `<i class="${iconClass}" style="color:${color};font-size:${size}"></i>`,
         className: "fa-marker",   // custom class prevents broken image
         iconAnchor: [12, 24],     // bottom-center
         popupAnchor: [0, -24],
@@ -102,24 +95,24 @@
 
     // Define POI icons (campground, trailhead, crossing)
     const poiIcons = {
-      campground: faIcon("fa-solid fa-campground", "#2e7d32"),
+      spring: faIcon("fa-solid fa-droplet", "#0277bd","14px"),
+      camped: faIcon("fa-solid fa-campground", "#2e7d32","24px"),
+      campsite: faIcon("fa-solid fa-campground", "#b0aeae","14px"),
       trailhead: faIcon("fa-solid fa-person-hiking", "#1565c0"),
-      crossing: faIcon("fa-solid fa-xmark", "#0277bd"),
-      bridge: faIcon("fa-solid fa-bridge-water", "#0277bd"),
+      crossing: faIcon("fa-solid fa-xmark", "#000000"),
+      bridge: faIcon("fa-solid fa-bridge-water", "#0277bd","14px"),
       car: faIcon("fa-solid fa-car", "#0277bd"),
-      //lake: faIcon("fa-solid fa-water", "#0277bd"),
-      residence: faIcon("fa-solid fa-house", "#0277bd"),
-      spring: faIcon("fa-solid fa-droplet", "#0277bd"),
+      residence: faIcon("fa-solid fa-house", "#0277bd")
     };
 
     // Layer groups for toggling
     const poiLayers = {
-      campground: L.layerGroup().addTo(map),
+      camped: L.layerGroup().addTo(map),
+      campsite: L.layerGroup().addTo(map),
       trailhead: L.layerGroup().addTo(map),
       crossing: L.layerGroup().addTo(map),
       bridge: L.layerGroup().addTo(map),
       car: L.layerGroup().addTo(map),
-      lake: L.layerGroup().addTo(map),
       residence: L.layerGroup().addTo(map),
       spring: L.layerGroup().addTo(map),
     };
@@ -138,7 +131,8 @@
 
     // Add layer toggle control
     L.control.layers(null, {
-      "Campgrounds": poiLayers.campground,
+      "Campsites": poiLayers.camped,
+      "Potential campsites": poiLayers.camped,
       "Trailheads": poiLayers.trailhead,
       "Waypoint": poiLayers.crossing,
       "Car": poiLayers.car,
