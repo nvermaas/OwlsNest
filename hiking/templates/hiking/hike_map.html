@@ -107,6 +107,7 @@
 
     // Layer groups for toggling
     const poiLayers = {
+      spring: L.layerGroup().addTo(map),
       camped: L.layerGroup().addTo(map),
       campsite: L.layerGroup().addTo(map),
       trailhead: L.layerGroup().addTo(map),
@@ -114,7 +115,6 @@
       bridge: L.layerGroup().addTo(map),
       car: L.layerGroup().addTo(map),
       residence: L.layerGroup().addTo(map),
-      spring: L.layerGroup().addTo(map),
     };
 
     // Load POIs from JSON
@@ -131,14 +131,14 @@
 
     // Add layer toggle control
     L.control.layers(null, {
-      "Campsites": poiLayers.camped,
-      "Potential campsites": poiLayers.camped,
-      "Trailheads": poiLayers.trailhead,
-      "Waypoint": poiLayers.crossing,
-      "Car": poiLayers.car,
-      "Bridge": poiLayers.bridge,
-      "Hut": poiLayers.residence,
       "Spring": poiLayers.spring,
+      "Camped": poiLayers.camped,
+      "Campsite": poiLayers.campsite,
+      "Waypoint": poiLayers.crossing,
+      "Bridge": poiLayers.bridge,
+      "Car": poiLayers.car,
+      "Hut": poiLayers.residence,
+
     }).addTo(map);
   </script>
 </body>
