@@ -126,7 +126,7 @@ class DetailsView(generic.DetailView):
 
         context['subtitle'] = f'{formatted}{with_who}'
 
-        location = hike.location
+        #location = hike.location
         gpx = hike.gpx
         context['gpx'] = gpx
 
@@ -137,6 +137,23 @@ def HikeSetFilter(request,filter):
     request.session['hike_filter'] = filter
     return redirect('hiking:index')
 
+
+def extract_points(hike):
+    """
+    extract a list of points from the GPX and/or the location json structure
+    these points will be plotted as markers on  the map.
+    """
+    points = []
+    if hike.gpx:
+        pass
+    return points
+
+
 def hike_map(request, pk):
+    """
+    show a map with a gpx track and/or coordinates that are stored in the Hike.location json blob.
+    """
     hike = get_object_or_404(Hike, pk=pk)
+
+    points = extract_points(hike)
     return render(request, "hiking/hike_map.html", {"hike": hike})

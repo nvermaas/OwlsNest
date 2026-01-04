@@ -3,6 +3,13 @@ from django.db import models
 from django.urls import reverse
 import re
 
+class HikePoint():
+    name = models.CharField(max_length=200)
+    type = models.CharField(max_length=20)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    description = models.TextField(blank=True)
+
 # Create your models here.
 class Hike(models.Model):
     title = models.CharField(max_length=100)
