@@ -1,16 +1,10 @@
 from django.db import models
 #from django.core.urlresolvers import reverse
 from django.urls import reverse
+from django.utils import timezone
 import re
 
-class HikePoint():
-    name = models.CharField(max_length=200)
-    type = models.CharField(max_length=20)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
-    description = models.TextField(blank=True)
 
-# Create your models here.
 class Hike(models.Model):
     title = models.CharField(max_length=100)
     place = models.CharField(max_length=40)
@@ -136,3 +130,12 @@ class TripDetail(models.Model):
     def __str__(self):
         return self.title + ' - ' + str(self.hike)
 
+class HikePoint(models.Model):
+    hike = models.ForeignKey("Hike", on_delete=models.CASCADE, related_name="points")
+    name = models.CharField(max_length=200, blank=True)
+    type = models.CharField(max_length=20)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    elevation = models.FloatField(default=None)
+    description = models.TextField(blank=True)
+    date = models.DateTimeField(default=timezone.now, blank=True)

@@ -2,18 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <title>{{ hike.name }}</title>
 
+  <!-- Leaflet CSS/JS -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Leaflet GPX plugin -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.7.0/gpx.min.js"></script>
+
+  <!-- Font Awesome Free -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
 
   <style>
     #map {
       height: 500px;
       width: 100%;
+    }
+
+    /* Fix Font Awesome DivIcons */
+    .fa-marker {
+      background: none !important;
+      border: none !important;
+      width: auto !important;
+      height: auto !important;
+    }
+
+    .leaflet-div-icon {
+      background: none !important;  /* remove default background */
+      border: none !important;      /* remove default border */
+      width: auto !important;
+      height: auto !important;
+    }
+
+    .fa-marker i {
+      font-size: 24px;
+      text-shadow:
+        -1px -1px 0 #fff,
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff;
     }
   </style>
 </head>
@@ -23,7 +57,11 @@
 
   <div id="map"></div>
 
+  <!-- Embed POIs safely as JSON -->
+  {{ points|json_script:"hike-points" }}
+
   <script>
+    // Initialize map
     const map = L.map("map");
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -31,20 +69,83 @@
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
 
+    // Add GPX track
     const gpxUrl = "{{ hike.gpx }}";
-
     new L.GPX(gpxUrl, {
       async: true,
+      polyline_options: {
+        color: "#e53935",
+        weight: 4,
+        opacity: 0.85,
+      },
       marker_options: {
-        startIconUrl: null,
-        endIconUrl: null,
+        startIcon: new L.DivIcon({ html: "" }),
+        endIcon: new L.DivIcon({ html: "" }),
         shadowUrl: null,
+        wptIconUrls: null
       },
     })
-      .on("loaded", function (e) {
-        map.fitBounds(e.target.getBounds());
-      })
-      .addTo(map);
+    .on("loaded", e => {
+      map.fitBounds(e.target.getBounds(), { padding: [20, 20] });
+    })
+    .addTo(map);
+
+    // Font Awesome DivIcon factory
+    function faIcon(iconClass, color) {
+      return L.divIcon({
+        html: `<i class="${iconClass}" style="color:${color};"></i>`,
+        className: "fa-marker",   // custom class prevents broken image
+        iconAnchor: [12, 24],     // bottom-center
+        popupAnchor: [0, -24],
+      });
+    }
+
+    // Define POI icons (campground, trailhead, crossing)
+    const poiIcons = {
+      campground: faIcon("fa-solid fa-campground", "#2e7d32"),
+      trailhead: faIcon("fa-solid fa-person-hiking", "#1565c0"),
+      crossing: faIcon("fa-solid fa-xmark", "#0277bd"),
+      bridge: faIcon("fa-solid fa-bridge-water", "#0277bd"),
+      car: faIcon("fa-solid fa-car", "#0277bd"),
+      //lake: faIcon("fa-solid fa-water", "#0277bd"),
+      residence: faIcon("fa-solid fa-house", "#0277bd"),
+      spring: faIcon("fa-solid fa-droplet", "#0277bd"),
+    };
+
+    // Layer groups for toggling
+    const poiLayers = {
+      campground: L.layerGroup().addTo(map),
+      trailhead: L.layerGroup().addTo(map),
+      crossing: L.layerGroup().addTo(map),
+      bridge: L.layerGroup().addTo(map),
+      car: L.layerGroup().addTo(map),
+      lake: L.layerGroup().addTo(map),
+      residence: L.layerGroup().addTo(map),
+      spring: L.layerGroup().addTo(map),
+    };
+
+    // Load POIs from JSON
+    const points = JSON.parse(document.getElementById("hike-points").textContent);
+
+    points.forEach(p => {
+      const layer = poiLayers[p.type];
+      if (!layer) return; // skip unknown types
+
+      L.marker([p.latitude, p.longitude], { icon: poiIcons[p.type] })
+        .bindPopup(`<strong>${p.name}</strong><br>${p.description || ""}`)
+        .addTo(layer);
+    });
+
+    // Add layer toggle control
+    L.control.layers(null, {
+      "Campgrounds": poiLayers.campground,
+      "Trailheads": poiLayers.trailhead,
+      "Waypoint": poiLayers.crossing,
+      "Car": poiLayers.car,
+      "Bridge": poiLayers.bridge,
+      "Hut": poiLayers.residence,
+      "Spring": poiLayers.spring,
+    }).addTo(map);
   </script>
 </body>
 </html>

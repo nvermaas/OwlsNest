@@ -8,6 +8,7 @@ from .models import Hike, TripDetail
 from .serializers import HikeSerializer, TripDetailSerializer
 from django.db.models import Q
 from . import config
+from .utils import extract_points
 
 # constants, read from a config later
 
@@ -120,10 +121,7 @@ class DetailsView(generic.DetailView):
         dt = datetime(int(year), month, 1)
         formatted = dt.strftime("%B %Y")
 
-        #days = f", {hike.days} days" if hike.days else ""
         with_who = f", with {hike.with_who}" if hike.with_who else ""
-        #kilometers = f", {hike.kilometers} km" if hike.kilometers else ""
-
         context['subtitle'] = f'{formatted}{with_who}'
 
         #location = hike.location
@@ -137,18 +135,6 @@ def HikeSetFilter(request,filter):
     request.session['hike_filter'] = filter
     return redirect('hiking:index')
 
-
-def extract_points(hike):
-    """
-    extract a list of points from the GPX and/or the location json structure
-    these points will be plotted as markers on  the map.
-    """
-    points = []
-    if hike.gpx:
-        pass
-    return points
-
-
 def hike_map(request, pk):
     """
     show a map with a gpx track and/or coordinates that are stored in the Hike.location json blob.
@@ -156,4 +142,12 @@ def hike_map(request, pk):
     hike = get_object_or_404(Hike, pk=pk)
 
     points = extract_points(hike)
-    return render(request, "hiking/hike_map.html", {"hike": hike})
+
+    return render(
+        request,
+        "hiking/hike_map.html",
+        {
+            "hike": hike,
+            "points" : points
+        }
+    )
