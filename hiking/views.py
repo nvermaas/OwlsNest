@@ -143,6 +143,7 @@ def hike_map(request, pk):
 
     points = extract_points(hike)
 
+
     return render(
         request,
         "hiking/hike_map.html",

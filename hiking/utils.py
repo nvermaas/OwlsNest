@@ -20,7 +20,7 @@ def get_waypoints_from_gpx(url):
             "description": wpt.description,
             "symbol": wpt.symbol,
             "comment": wpt.comment,
-            "type": wpt.type.lower(),
+            "type": wpt.type,
         })
 
     return waypoints
@@ -42,6 +42,10 @@ def extract_points(hike):
             # if the name is 3 characters, then it is probably a waypoint that I didn't give a name
             # so if it is a campground, then it was probably a potential camp along the way, and not a
             # campsite where we stayed. So change the type here, so I can render it differently on the map.
+            try:
+                waypoint['type'] = waypoint['type'].lower()
+            except:
+                waypoint['type'] = waypoint['symbol'].lower()
 
             if (waypoint['type'] == 'campground'):
                 name = waypoint['name']
@@ -49,6 +53,9 @@ def extract_points(hike):
                     waypoint['type'] = "campsite"
                 else:
                     waypoint['type'] = "camped"
+
+            if (waypoint['type'] == 'town'):
+                waypoint['type'] = "residence"
 
 
             points.append(waypoint)

@@ -102,7 +102,9 @@
       crossing: faIcon("fa-solid fa-xmark", "#000000"),
       bridge: faIcon("fa-solid fa-bridge-water", "#0277bd","14px"),
       car: faIcon("fa-solid fa-car", "#0277bd"),
-      residence: faIcon("fa-solid fa-house", "#0277bd")
+      residence: faIcon("fa-solid fa-house", "#0277bd"),
+      anchor: faIcon("fa-solid fa-anchor", "#0277bd"),
+      summit: faIcon("fa-solid fa-mountain", "#0277bd")
     };
 
     // Layer groups for toggling
@@ -115,6 +117,8 @@
       bridge: L.layerGroup().addTo(map),
       car: L.layerGroup().addTo(map),
       residence: L.layerGroup().addTo(map),
+      anchor: L.layerGroup().addTo(map),
+      summit: L.layerGroup().addTo(map),
     };
 
     // Load POIs from JSON
@@ -138,7 +142,8 @@
       "Bridge": poiLayers.bridge,
       "Car": poiLayers.car,
       "Hut": poiLayers.residence,
-
+      "Anchor": poiLayers.anchor,
+      "Summit": poiLayers.summit
     }).addTo(map);
   </script>
 </body>
