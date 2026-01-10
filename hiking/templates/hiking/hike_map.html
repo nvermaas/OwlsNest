@@ -26,7 +26,6 @@
       width: 100%;
     }
 
-    /* Fix Font Awesome DivIcons */
     .fa-marker {
       background: none !important;
       border: none !important;
@@ -47,10 +46,8 @@
 
 <body>
   <h1>{{ hike.name }}</h1>
-
   <div id="map"></div>
 
-  <!-- Embed POIs safely as JSON -->
   {{ points|json_script:"hike-points" }}
 
   <script>
@@ -62,8 +59,69 @@
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
 
+    // Combined bounds for GPX + POIs
+    const combinedBounds = L.latLngBounds([]);
+
+    // Font Awesome DivIcon factory
+    function faIcon(iconClass, color, size = "24px") {
+      return L.divIcon({
+        html: `<i class="${iconClass}" style="color:${color};font-size:${size}"></i>`,
+        className: "fa-marker",
+        iconAnchor: [12, 24],
+        popupAnchor: [0, -24],
+      });
+    }
+
+    // POI icons
+    const poiIcons = {
+      spring: faIcon("fa-solid fa-droplet", "#0277bd", "14px"),
+      camped: faIcon("fa-solid fa-campground", "#2e7d32"),
+      campsite: faIcon("fa-solid fa-campground", "#b0aeae", "14px"),
+      trailhead: faIcon("fa-solid fa-person-hiking", "#1565c0"),
+      crossing: faIcon("fa-solid fa-xmark", "#000000"),
+      bridge: faIcon("fa-solid fa-bridge-water", "#0277bd", "14px"),
+      car: faIcon("fa-solid fa-car", "#0277bd"),
+      residence: faIcon("fa-solid fa-house", "#0277bd"),
+      anchor: faIcon("fa-solid fa-anchor", "#0277bd"),
+      summit: faIcon("fa-solid fa-mountain", "#0277bd")
+    };
+
+    // Layer groups
+    const poiLayers = {
+      spring: L.layerGroup().addTo(map),
+      camped: L.layerGroup().addTo(map),
+      campsite: L.layerGroup().addTo(map),
+      trailhead: L.layerGroup().addTo(map),
+      crossing: L.layerGroup().addTo(map),
+      bridge: L.layerGroup().addTo(map),
+      car: L.layerGroup().addTo(map),
+      residence: L.layerGroup().addTo(map),
+      anchor: L.layerGroup().addTo(map),
+      summit: L.layerGroup().addTo(map),
+    };
+
+    // Load POIs
+    const points = JSON.parse(
+      document.getElementById("hike-points").textContent
+    );
+
+    points.forEach(p => {
+      const layer = poiLayers[p.type];
+      if (!layer) return;
+
+      const latlng = [p.latitude, p.longitude];
+
+      L.marker(latlng, { icon: poiIcons[p.type] })
+        .bindPopup(`<strong>${p.name}</strong><br>${p.description || ""}`)
+        .addTo(layer);
+
+      // Extend combined bounds with POI
+      combinedBounds.extend(latlng);
+    });
+
     // Add GPX track
     const gpxUrl = "{{ hike.gpx }}";
+
     new L.GPX(gpxUrl, {
       async: true,
       polyline_options: {
@@ -79,61 +137,16 @@
       },
     })
     .on("loaded", e => {
-      map.fitBounds(e.target.getBounds(), { padding: [20, 20] });
+      // Extend bounds with GPX track
+      combinedBounds.extend(e.target.getBounds());
+
+      if (combinedBounds.isValid()) {
+        map.fitBounds(combinedBounds, { padding: [20, 20] });
+      }
     })
     .addTo(map);
 
-    // Font Awesome DivIcon factory
-    function faIcon(iconClass, color, size) {
-      return L.divIcon({
-        html: `<i class="${iconClass}" style="color:${color};font-size:${size}"></i>`,
-        className: "fa-marker",   // custom class prevents broken image
-        iconAnchor: [12, 24],     // bottom-center
-        popupAnchor: [0, -24],
-      });
-    }
-
-    // Define POI icons (campground, trailhead, crossing)
-    const poiIcons = {
-      spring: faIcon("fa-solid fa-droplet", "#0277bd","14px"),
-      camped: faIcon("fa-solid fa-campground", "#2e7d32","24px"),
-      campsite: faIcon("fa-solid fa-campground", "#b0aeae","14px"),
-      trailhead: faIcon("fa-solid fa-person-hiking", "#1565c0"),
-      crossing: faIcon("fa-solid fa-xmark", "#000000"),
-      bridge: faIcon("fa-solid fa-bridge-water", "#0277bd","14px"),
-      car: faIcon("fa-solid fa-car", "#0277bd"),
-      residence: faIcon("fa-solid fa-house", "#0277bd"),
-      anchor: faIcon("fa-solid fa-anchor", "#0277bd"),
-      summit: faIcon("fa-solid fa-mountain", "#0277bd")
-    };
-
-    // Layer groups for toggling
-    const poiLayers = {
-      spring: L.layerGroup().addTo(map),
-      camped: L.layerGroup().addTo(map),
-      campsite: L.layerGroup().addTo(map),
-      trailhead: L.layerGroup().addTo(map),
-      crossing: L.layerGroup().addTo(map),
-      bridge: L.layerGroup().addTo(map),
-      car: L.layerGroup().addTo(map),
-      residence: L.layerGroup().addTo(map),
-      anchor: L.layerGroup().addTo(map),
-      summit: L.layerGroup().addTo(map),
-    };
-
-    // Load POIs from JSON
-    const points = JSON.parse(document.getElementById("hike-points").textContent);
-
-    points.forEach(p => {
-      const layer = poiLayers[p.type];
-      if (!layer) return; // skip unknown types
-
-      L.marker([p.latitude, p.longitude], { icon: poiIcons[p.type] })
-        .bindPopup(`<strong>${p.name}</strong><br>${p.description || ""}`)
-        .addTo(layer);
-    });
-
-    // Add layer toggle control
+    // Layer toggle control
     L.control.layers(null, {
       "Spring": poiLayers.spring,
       "Camped": poiLayers.camped,
@@ -144,7 +157,6 @@
       "Hut": poiLayers.residence,
       "Anchor": poiLayers.anchor,
       "Summit": poiLayers.summit
-
     }).addTo(map);
   </script>
 </body>

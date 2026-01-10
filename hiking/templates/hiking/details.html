@@ -29,9 +29,6 @@
                         {% endif %}
                     </a>
 
-                    {% if hike.gpx %}
-                        <a href="{% url 'hiking:hike-map' hike.pk %}" target="_blank" class="btn btn-primary btn-sm" role="button"><i class="fas fa-map"></i> GPX</a>
-                    {% endif %}
                     {% if hike.has_gps %}
                         <a href="{% url 'hiking:hike-map' hike.pk %}" target="_blank" class="btn btn-primary btn-sm" role="button"><i class="fas fa-map"></i> GPS</a>
                     {% endif %}
