@@ -89,6 +89,27 @@ class Hike(models.Model):
 
         return url
 
+    @property
+    def waypoints(self):
+        url = None
+        try:
+            url = self.location['waypoints']
+        except:
+            pass
+
+        return url
+
+    def has_gps(self):
+        """
+        boolean function that indicates if this hike has GPS information attached
+        """
+        try:
+            if self.location['gpx'] or self.location['waypoints']:
+                return True
+        except:
+            return False
+
+
 class TripDetail(models.Model):
     KIND_IMAGE = 'image'
     KIND_MOVIE = 'movie'
