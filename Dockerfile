@@ -1,6 +1,6 @@
 FROM python:3.10-slim-bullseye
 
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 RUN apt-get update && apt-get install --no-install-recommends -y bash nano
 RUN mkdir /src
 WORKDIR /src
